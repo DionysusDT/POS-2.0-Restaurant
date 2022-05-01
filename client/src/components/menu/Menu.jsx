@@ -1,96 +1,82 @@
-import styles from "./Menu.module.css";
 import axios from "axios";
+import Container from '@mui/material/Container'
+import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import HomeIcon from '@mui/icons-material/Home';
+import Menubody from './Menubody';
+import CloseIcon from '@mui/icons-material/Close';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import Button from '@mui/material/Button';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import { useNavigate } from "react-router-dom";
+import verifyToken from '../../midlewares/verifyToken';
+import socketClient from "socket.io-client";
+import clsx from "clsx";
+import styles from "./Menu.module.css";
 import {
   FaHome,
   FaShoppingCart,
   FaAngleLeft,
   FaAngleRight,
 } from "react-icons/fa";
-import clsx from "clsx";
-import { useEffect, useState, useCallback, useLayoutEffect } from "react";
-import Cart from "./Cart";
-import Signin from "../signin/Signin";
-import { useNavigate } from "react-router-dom";
-import verifyToken from '../../midlewares/verifyToken';
-import CloseIcon from '@mui/icons-material/Close';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import Button from '@mui/material/Button'
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import socketClient from "socket.io-client";
-import {categories, products} from "../../DataAPI"
-import { Link } from 'react-router-dom';
-import Menubody from "./Menubody";
 const SERVER = "http://localhost:4000/";
 const classNames = require('classnames');
 
-function Menu() {
-  const [checkDL, setCheckDL] = useState(false);
-  const [productDialog, setProductDialog] = useState({});
-  const [checkFocusCategory, setCheckFocusCategory] = useState(0);
-  const [showCart, setShowCart] = useState(false);
-  const [countQuantity, setCountQuantity] = useState(0);
-  const [listProductInCart, setListProductInCart] = useState([]);
-  const [showLogin, setShowLogin] = useState(false);
-  // const [message, setMessage] = useState(null);
-  const handleShowCart = useCallback(() => {
-    setShowCart((showCart) => !showCart);
-  }, []);
-  const [dataTag, setDataTag] = useState(() => {
-    return {
-       data: [],
-       currentIdx: 0,
-       currentIdxProduct: 0,
-       quantity: 1,
-      //  start,
-      //  end,
-      //  responsive
-    }
- }
- );
-  useLayoutEffect(() => {
-    if (countQuantity > productDialog.quantity) {
-      setCountQuantity(productDialog.quantity);
-    } else if (countQuantity === 0 && productDialog.quantity > 0) {
-      setCountQuantity(1);
-    } else if (countQuantity < 0) {
-      setCountQuantity(0);
-    }
-  }, [countQuantity]);
-
-  useEffect(() => {
-    productDialog.quantity > 0 ? setCountQuantity(1) : setCountQuantity(0);
-  }, [checkDL]);
-
-  useLayoutEffect(() => {
-    if (listProductInCart.length > 1)
-      for (let i = 0; i < listProductInCart.length - 1; i++) {
-        if (
-          listProductInCart[i].id ===
-          listProductInCart[listProductInCart.length - 1].id
-        ) {
-          listProductInCart.pop();
-          if (
-            listProductInCart[i].currentQuantity + countQuantity >
-            listProductInCart[i].quantity
-          ) {
-            listProductInCart[i].currentQuantity =
-              listProductInCart[i].quantity;
-          } else {
-            listProductInCart[i].currentQuantity =
-              listProductInCart[i].currentQuantity + countQuantity;
-          }
-          setListProductInCart([...listProductInCart]);
-          break;
-        }
-      }
-  }, [listProductInCart]);
-
-  ///
-
+export default function Menu() {
   const navigate = useNavigate();
-  const [showModal, setShowModal] = useState(false);
-  //  const [showCart, setShowCart] = useState(false);
+   const [dataTag, setDataTag] = useState(() => {
+      const { start, end, responsive } = (() => {
+         if (window.innerWidth > 992) {
+            return {
+               start: 0,
+               end: 6,
+               responsive: 992
+            }
+         }
+         if (window.innerWidth > 768) {
+            return {
+               start: 0,
+               end: 5,
+               responsive: 768
+            }
+
+         }
+         if (window.innerWidth > 576) {
+            return {
+               start: 0,
+               end: 4,
+               responsive: 576
+            }
+         }
+         if (window.innerWidth > 478) {
+            return {
+               start: 0,
+               end: 3,
+               responsive: 478
+            }
+         }
+         return {
+            start: 0,
+            end: 2,
+            responsive: 477
+         }
+      })();
+      return {
+         data: [],
+         currentIdx: 0,
+         currentIdxProduct: 0,
+         quantity: 1,
+         start,
+         end,
+         responsive
+      }
+   }
+   );
+   const [showModal, setShowModal] = useState(false);
+   const [showCart, setShowCart] = useState(false);
    const [dataCart, setDataCart] = useState(() => {
       const data = JSON.parse(localStorage.getItem('ORDER'));
       return data ? data :
@@ -99,7 +85,7 @@ function Menu() {
             totalOrder: 0
          }
    });
-  const [message, setMessage] = useState(null);
+   const [message, setMessage] = useState(null);
    useEffect(() => {
       try {
          let reqOptions = {
@@ -132,246 +118,291 @@ function Menu() {
       
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [dataCart.products])
-  //  useEffect(() => {
-  //     window.addEventListener("resize", handleWindowResize);
-  //     return () => window.removeEventListener("resize", handleWindowResize);
+   useEffect(() => {
+      window.addEventListener("resize", handleWindowResize);
+      return () => window.removeEventListener("resize", handleWindowResize);
       
-  //  });
+   });
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+   useEffect(() => handleWindowResize(), []);
+   function handleWindowResize() {
+      if (window.innerWidth > 992) {
+         if (dataTag.responsive !== 992)
+            setDataTag({
+               ...dataTag,
+               start: 0,
+               currentIdx: 1,
+               end: 6,
+               responsive: 992
+            })
+      }
+      else if (window.innerWidth > 768) {
+         if (dataTag.responsive !== 768)
+            setDataTag({
+               ...dataTag,
+               start: 0,
+               currentIdx: 1,
+               end: 5,
+               responsive: 768
+            })
+      }
+      else if (window.innerWidth > 576) {
+         if (dataTag.responsive !== 576)
+            setDataTag({
+               ...dataTag,
+               start: 0,
+               currentIdx: 1,
+               end: 4,
+               responsive: 576
+            })
+      }
+      else if (window.innerWidth > 478) {
+         if (dataTag.responsive !== 478)
+            setDataTag({
+               ...dataTag,
+               start: 0,
+               currentIdx: 1,
+               end: 3,
+               responsive: 478
+            })
+      }
+      else {
+         if (dataTag.responsive !== 477)
+            setDataTag({
+               ...dataTag,
+               start: 0,
+               currentIdx: 1,
+               end: 2,
+               responsive: 477
+            })
+      }
+   }
+   function handleClickTag(idx) {
+      setDataTag({
+         ...dataTag,
+         currentIdx: idx
+      })
+   }
+   function onclickprevbtn() {
+      if (dataTag.currentIdx === 0) return;
+      if (dataTag.start === dataTag.currentIdx)
+         setDataTag({
+            ...dataTag,
+            start: dataTag.start - 1,
+            end: dataTag.end - 1,
+            currentIdx: dataTag.currentIdx - 1
+         })
+      else
+         setDataTag({
+            ...dataTag,
+            currentIdx: dataTag.currentIdx - 1,
+         })
+   }
+   function onclicknextbtn() {
+      if (dataTag.currentIdx === dataTag.data.length - 1) return;
+      if (dataTag.end === dataTag.currentIdx)
+         setDataTag({
+            ...dataTag,
+            start: dataTag.start + 1,
+            end: dataTag.end + 1,
+            currentIdx: dataTag.currentIdx + 1
+         })
+      else
+         setDataTag({
+            ...dataTag,
+            currentIdx: dataTag.currentIdx + 1,
+         })
+   }
+   function handleClickIncrease() {
+      setDataTag({
+         ...dataTag,
+         quantity: dataTag.quantity + 1
+      })
+   }
+   function handleClickDecrease() {
+      if (dataTag.quantity === 1) return;
+      setDataTag({
+         ...dataTag,
+         quantity: dataTag.quantity - 1
+      })
+   }
+   function handleClickDecreaseCart(idx, currentIdx) {
+      const products = dataCart.products.map((item) => {
+         if (item.currentIdxProduct === idx && item.currentIdx === currentIdx) {
+            const quantity = item.quantity === 1 ? 1 : item.quantity - 1;
+            return {
+               ...item,
+               quantity,
+               totalPrice: item.price * quantity
+            }
+         }
+         return item;
+      })
+      setDataCart({
+         ...dataCart,
+         products
+      })
+   }
+   function handleClickIncreaseCart(idx, currentIdx) {
+      const products = dataCart.products.map((item) => {
+         if (item.currentIdxProduct === idx && item.currentIdx === currentIdx) {
+            const quantity = item.quantity + 1;
+            return {
+               ...item,
+               quantity,
+               totalPrice: item.price * quantity
+            }
+         }
+         return item;
+      })
+      setDataCart({
+         ...dataCart,
+         products
+      })
+   }
+   function removeProduct(idx) {
+      var products = [];
+      dataCart.products.forEach((item, index) => {
+         if (idx !== index) {
+            products.push(item);
+         }
+      })
+      setDataCart({
+         ...dataCart,
+         products
+      })
+   }
 
-  function handleClickTag(idx) {
-    setDataTag({
-       ...dataTag,
-       currentIdx: idx
-    })
- }
- function onclickprevbtn() {
-    if (dataTag.currentIdx === 0) return;
-    if (dataTag.start === dataTag.currentIdx)
-       setDataTag({
-          ...dataTag,
-          start: dataTag.start - 1,
-          end: dataTag.end - 1,
-          currentIdx: dataTag.currentIdx - 1
-       })
-    else
-       setDataTag({
-          ...dataTag,
-          currentIdx: dataTag.currentIdx - 1,
-       })
- }
- function onclicknextbtn() {
-    if (dataTag.currentIdx === dataTag.data.length - 1) return;
-    if (dataTag.end === dataTag.currentIdx)
-       setDataTag({
-          ...dataTag,
-          start: dataTag.start + 1,
-          end: dataTag.end + 1,
-          currentIdx: dataTag.currentIdx + 1
-       })
-    else
-       setDataTag({
-          ...dataTag,
-          currentIdx: dataTag.currentIdx + 1,
-       })
- }
- function handleClickIncrease() {
-    setDataTag({
-       ...dataTag,
-       quantity: dataTag.quantity + 1
-    })
- }
- function handleClickDecrease() {
-    if (dataTag.quantity === 1) return;
-    setDataTag({
-       ...dataTag,
-       quantity: dataTag.quantity - 1
-    })
- }
- function handleClickDecreaseCart(idx, currentIdx) {
-    const products = dataCart.products.map((item) => {
-       if (item.currentIdxProduct === idx && item.currentIdx === currentIdx) {
-          const quantity = item.quantity === 1 ? 1 : item.quantity - 1;
-          return {
-             ...item,
-             quantity,
-             totalPrice: item.price * quantity
-          }
-       }
-       return item;
-    })
-    setDataCart({
-       ...dataCart,
-       products
-    })
- }
- function handleClickIncreaseCart(idx, currentIdx) {
-    const products = dataCart.products.map((item) => {
-       if (item.currentIdxProduct === idx && item.currentIdx === currentIdx) {
-          const quantity = item.quantity + 1;
-          return {
-             ...item,
-             quantity,
-             totalPrice: item.price * quantity
-          }
-       }
-       return item;
-    })
-    setDataCart({
-       ...dataCart,
-       products
-    })
- }
- function removeProduct(idx) {
-    var products = [];
-    dataCart.products.forEach((item, index) => {
-       if (idx !== index) {
-          products.push(item);
-       }
-    })
-    setDataCart({
-       ...dataCart,
-       products
-    })
- }
-
- function closeModal() {
-    setShowModal(false);
- }
- function openModal(idx) {
-    // if (window.innerWidth > 800) {
-       setShowModal(true);
-       setDataTag({
-          ...dataTag,
-          currentIdx: dataTag.currentIdx,
-          currentIdxProduct: idx,
-          quantity: 1,
-       })
-    // }
- }
- function closeCart() {
-    setShowCart(false);
- }
- function openCart() {
-    setShowCart(true);
- }
- function addToCart(value = dataTag.quantity, currentIdx = dataTag.currentIdx, currentIdxProduct = dataTag.currentIdxProduct) {
-    var isEmptyOrNull = true;
-    const products = dataCart.products.map((item) => {
-       if (item.currentIdx === currentIdx) {
-          if (item.currentIdxProduct === currentIdxProduct) {
-             isEmptyOrNull = false;
-             return {
-                ...item,
-                quantity: item.quantity + value,
-                totalPrice: (item.quantity + value) * item.price
-             }
-          }
-       }
-       return item;
-    })
-    if (isEmptyOrNull)
-       products.push({
-          currentIdx: currentIdx,
-          currentIdxProduct: currentIdxProduct,
-          quantity: value,
-          price: dataTag.data[currentIdx].products[currentIdxProduct].price,
-          totalPrice: dataTag.data[currentIdx].products[currentIdxProduct].price * value,
-          productID: dataTag.data[currentIdx].products[currentIdxProduct].productID,
-          name: dataTag.data[currentIdx].products[currentIdxProduct].name
-       })
-    setDataCart({
-       ...dataCart,
-       products
-    })
-    closeModal();
- }
- function format(n, currency) {
-    if (n && currency)
-       return currency + n.toFixed(0).replace(/./g, function (c, i, a) {
-          return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
-       });
- }
- async function handlePayment() {
-    try {
-       setMessage('Vui lòng đợi thu ngân xác nhận đơn hàng, không chuyển trang hoặc f5');
-       const info = verifyToken();
-       var email = '';
-       if (info) {
-          await info.then(res => {
-             email = res.data.email;
-          })
-       }
-       var data = {
-          email: email,
-          total: dataCart.totalOrder,
-          products: dataCart.products.map((item) => {
-             const {
-                quantity,
-                price,
-                totalPrice,
-                name,
-                productID
-             } = item;
-             return {
-                quantity,
-                price,
-                totalPrice,
-                name,
-                productID
-             }
-          })
-       }
-       const socket = socketClient(SERVER);
-       socket.emit('postOrder', data, (res) => {
-          if (res.success) {
-             socket.on(`${res.orderId}`, (status) => {
-                localStorage.setItem('ORDER', null);
-                socket.disconnect();
-                if (status === 'confirmed') navigate('/payment');
-                else if (status === 'cancel') setMessage('Đơn hàng của bạn đã bị hủy bởi thu nhân');
-             })
-          }
-          else {
-             setMessage('Đơn hàng gửi lên bị lỗi');
-          }
-       });
-    }
-    catch (err) {
-       console.log(err)
-    }
- }
-
-
-  return (
-      // <div className={clsx}>
-      //   okok
-      // </div>
-
-      <div className={clsx(styles.container)}>
-        <div className={clsx(styles.menuContainer)}>
-          <div className={clsx(styles.header)}>
-            <div className={clsx(styles.homeIcon)}>
-                <Link to="/">
-                  <FaHome />
-                </Link>
-            </div>
-            <div className={clsx(styles.content)}>Back to home</div>
-            <div className={clsx(styles.takeCart)} style={{ marginRight: 35 }}>
-              {!showCart && <FaShoppingCart  onClick={() => setShowCart(true)} /> }
-              <span>Giỏ hàng({dataCart.products.length})</span>
-            </div>
-          </div>  
-        <Menubody 
-          data={dataTag.data}
-          currentIdx={dataTag.currentIdx}
-          onclicknextbtn={onclicknextbtn} onclickprevbtn={onclickprevbtn}
-          handleClickTag={handleClickTag}
-          addToCart={addToCart}
-          openModal={openModal}
-        >
-          
-        </Menubody> 
-          {/* {showModal && <div className={classNames('modal', { open: showModal })}
+   function closeModal() {
+      setShowModal(false);
+   }
+   function openModal(idx) {
+      if (window.innerWidth > 800) {
+         setShowModal(true);
+         setDataTag({
+            ...dataTag,
+            currentIdx: dataTag.currentIdx,
+            currentIdxProduct: idx,
+            quantity: 1,
+         })
+      }
+   }
+   function closeCart() {
+      setShowCart(false);
+   }
+   function openCart() {
+      setShowCart(true);
+   }
+   function addToCart(value = dataTag.quantity, currentIdx = dataTag.currentIdx, currentIdxProduct = dataTag.currentIdxProduct) {
+      var isEmptyOrNull = true;
+      const products = dataCart.products.map((item) => {
+         if (item.currentIdx === currentIdx) {
+            if (item.currentIdxProduct === currentIdxProduct) {
+               isEmptyOrNull = false;
+               return {
+                  ...item,
+                  quantity: item.quantity + value,
+                  totalPrice: (item.quantity + value) * item.price
+               }
+            }
+         }
+         return item;
+      })
+      if (isEmptyOrNull)
+         products.push({
+            currentIdx: currentIdx,
+            currentIdxProduct: currentIdxProduct,
+            quantity: value,
+            price: dataTag.data[currentIdx].products[currentIdxProduct].price,
+            totalPrice: dataTag.data[currentIdx].products[currentIdxProduct].price * value,
+            productID: dataTag.data[currentIdx].products[currentIdxProduct].productID,
+            name: dataTag.data[currentIdx].products[currentIdxProduct].name
+         })
+      setDataCart({
+         ...dataCart,
+         products
+      })
+      closeModal();
+   }
+   function format(n, currency) {
+      if (n && currency)
+         return currency + n.toFixed(0).replace(/./g, function (c, i, a) {
+            return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
+         });
+   }
+   async function handlePayment() {
+      try {
+         setMessage('Vui lòng đợi thu ngân xác nhận đơn hàng, không chuyển trang hoặc f5');
+         const info = verifyToken();
+         var email = '';
+         if (info) {
+            await info.then(res => {
+               email = res.data.email;
+            })
+         }
+         var data = {
+            email: email,
+            total: dataCart.totalOrder,
+            products: dataCart.products.map((item) => {
+               const {
+                  quantity,
+                  price,
+                  totalPrice,
+                  name,
+                  productID
+               } = item;
+               return {
+                  quantity,
+                  price,
+                  totalPrice,
+                  name,
+                  productID
+               }
+            })
+         }
+         const socket = socketClient(SERVER);
+         socket.emit('postOrder', data, (res) => {
+            if (res.success) {
+               socket.on(`${res.orderId}`, (status) => {
+                  localStorage.setItem('ORDER', null);
+                  socket.disconnect();
+                  if (status === 'confirmed') navigate('/payment');
+                  else if (status === 'cancel') setMessage('Đơn hàng của bạn đã bị hủy bởi thu nhân');
+               })
+            }
+            else {
+               setMessage('Đơn hàng gửi lên bị lỗi');
+            }
+         });
+      }
+      catch (err) {
+         console.log(err)
+      }
+   }
+   return (
+      message ?
+         <div className='message'>
+            <h1>{message}</h1>
+         </div>
+         :
+         (
+          <div className={clsx(styles.container)}>
+           <div className={clsx(styles.menuContainer)}>
+           <div className={clsx(styles.header)}>
+              <div className={clsx(styles.homeIcon)}>
+                  <Link to="/">
+                    <FaHome />
+                  </Link>
+              </div>
+              <div className={clsx(styles.content)}>Về trang chủ</div>
+              <div className={clsx(styles.takeCart)} style={{ marginRight: 35 }} onClick={() => openCart()}s>
+                <FaShoppingCart/>
+                <span>({dataCart.products.length})</span>
+              </div>
+           </div>
+          //  <div className='menu'>
+            <Container fluid='lg'>
+               {showModal && <div className={classNames('modal', { open: showModal })}
                   onClick={() => closeModal()}>
                   <div className='modal-body' onClick={(e) => e.stopPropagation()}>
                      <div className='heading'>
@@ -417,10 +448,66 @@ function Menu() {
                         </div>
                      </div>
                   </div>
-               </div>} */}
-          </div>
+               </div>}
+               //
+               <Menubody data={dataTag.data}
+                  start={dataTag.start}
+                  end={dataTag.end}
+                  currentIdx={dataTag.currentIdx}
+                  onclicknextbtn={onclicknextbtn} onclickprevbtn={onclickprevbtn}
+                  handleClickTag={handleClickTag}
+                  addToCart={addToCart}
+                  openModal={openModal}></Menubody>
+               <div className={classNames('cart', { cartOpen: showCart })}
+                  onClick={() => closeCart()}>
+                  <div className='cart-wrap' onClick={(e) => e.stopPropagation()} >
+                     <div className='cart-header'>
+                        <ShoppingCartIcon className='cart-icon' /><span>Giỏ hàng({dataCart.products.length})</span>
+                        <CloseIcon className='cart-close' onClick={() => closeCart()} />
+                     </div>
+                     <div className='container'>
+                        {dataTag.data.length !== 0 && dataCart.products.map((item, idx) => (
+                           <div className='product' key={idx}>
+                              <div className='product-wrap'>
+                                 <img src={`${dataTag.data[item.currentIdx].products[item.currentIdxProduct].imgURL}`} alt="img" />
+                              </div>
+                              <div className='body'>
+                                 <p><span>{idx + 1}. </span>{dataTag.data[item.currentIdx].products[item.currentIdxProduct].name}</p>
+                                 <div className='body-wrap'>
+                                    <div className='quantity'>
+                                       <div className='btn btn-decrease' onClick={() => {
+                                          handleClickDecreaseCart(item.currentIdxProduct, item.currentIdx)
+                                       }} ><RemoveIcon /></div>
+                                       <span>{item.quantity}</span>
+                                       <div className='btn btn-increase' onClick={() => {
+                                          handleClickIncreaseCart(item.currentIdxProduct, item.currentIdx)
+                                       }}><AddIcon /></div>
+                                    </div>
+                                    <div className='price-wrap'>
+                                       <div className='price'>{format(item.totalPrice, 'đ')}</div>
+                                       <div>{dataTag.data[item.currentIdx].type}</div>
+                                    </div>
+                                 </div>
+                                 <RemoveCircleOutlineIcon className='product-close' onClick={() => removeProduct(idx)} />
+                              </div>
+                           </div>
+                        ))}
+                     </div>
+                     <div className='cart-footer'>
+                        <div className='cart-footer-wrap'>
+                           <h3>Tổng:</h3>
+                           <p>{dataCart.totalOrder ? format(dataCart.totalOrder, 'đ') : 'đ0'}</p>
+                        </div>
+                        <div className='discount'></div>
+                        <Button className='btn-modal' variant="contained" color="secondary" onClick={handlePayment}>Thanh toán</Button>
+                     </div>
+                  </div>
+               </div>
+            </Container>
+          // </div>
+         </div>
+              
         </div>
-  )
+         )
+   )
 }
-
-export default Menu;
