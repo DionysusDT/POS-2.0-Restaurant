@@ -13,6 +13,7 @@ import {
 const classNames = require('classnames');
 
 export default function Menubody(props) {
+    console.log(props.data)
     function format(n, currency) {
         return currency + n.toFixed(0).replace(/./g, function (c, i, a) {
             return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
@@ -33,6 +34,30 @@ export default function Menubody(props) {
                 >
                   <FaAngleLeft />
                 </div>
+                {props.data.map((item, idx) => {
+                  var isCur = false;
+                  if (props.currentIdx === idx) isCur = true;
+                  if (idx >= props.start && idx <= props.end) return (
+                    <div
+                      key={idx}
+                      className={clsx(styles.itemCategory,{ currentTag: isCur })}
+                      style={
+                        isCur ? { backgroundColor: "#2c3a57", color: "#fff" }
+                          : {}
+                      }
+                      onClick={(e) => props.handleClickTag(idx)}
+                    >
+                      <div className={clsx(styles.categoryWrapperImg)}>
+                        <img src={item.imgURL} alt="" />
+                      </div>
+                      <p>{item.type}</p>
+                  
+                    </div>
+                  )
+                  return null
+                })}
+                    
+                
 
                 <div
                   className={classNames('next-btn', { disable: (() => props.data.length - 1 === props.currentIdx ? true : false)() })} onClick={() => props.onclicknextbtn()}
@@ -49,59 +74,48 @@ export default function Menubody(props) {
                 >
                   <FaAngleRight />
                 </div>
-
               </div>
-        </div>
-        <div className='menubody'>
-            <div className='heading'>
-                
-                <div className='tag'>
-                    {props.data.map((item, idx) => {
-                        var isCur = false;
-                        if (props.currentIdx === idx) isCur = true;
-                        if (idx >= props.start && idx <= props.end) return (
-                            <div key={idx} className={classNames('tag-product', { currentTag: isCur })}
-                                onClick={(e) => props.handleClickTag(idx)}>
-                                <div className='tag-img' style={{
-                                    backgroundImage: `url("${item.imgURL}")`
-                                }}></div>
-                                <h3>{item.type}</h3>
-                            </div>
-                        )
-                        return null;
-                    })}
-                </div>
-  
 
-  
+             
+        
+                 
+          <div className={clsx(styles.listFood)}>
+            <label className={clsx(styles.title)}>
+              <span>{props.data.length !== 0 && props.data[props.currentIdx].type}</span>
+            </label>
+            <div className={clsx(styles.itemsFood)}>
+              {props.data.length !== 0 && props.data[props.currentIdx].products.map((item, idx) => {
+                {
+                  return (
+                    (
+                      <div
+                        key={idx}
+                        className={clsx(styles.itemFood)}
+                        onClick={() => props.openModal(idx)}
+                      >
+                        <img src={item.imgURL} alt="" />
+                        <div className={clsx(styles.details)}>
+                          <p>1. {item.name}</p>
+                          <div className={clsx(styles.cost)}>
+                            <p className={clsx(styles.money)}>
+                              {format(item.price, 'đ')}
+                            </p>
+                            <p className={clsx(styles.cart)} onClick={(e) => {
+                                              e.stopPropagation();props.addToCart(1, props.currentIdx, idx);
+                                            }}>
+                              <FaShoppingCart />
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  );
+                }
+              })
+              }        
             </div>
-            <div className='content'>
-                <h3 className='type'><span>{props.data.length !== 0 && props.data[props.currentIdx].type}</span></h3>
-                <div className='content-wrap'>
-                    <Grid container spacing={0}>
-                        {props.data.length !== 0 && props.data[props.currentIdx].products.map((item, idx) => (
-                            <Grid item xs={6} sm={4} lg={3} key={idx}>
-                                <div className='product' onClick={() => props.openModal(idx)}>
-                                    <div className='product-img' style={{
-                                        backgroundImage: `url("${item.imgURL}")`
-                                    }}></div>
-                                    <h3><span>{idx + 1}. </span>{item.name}</h3>
-                                    <div className='product-wrap'>
-                                        <span>{format(item.price, 'đ')}</span>
-                                        <div className='btn-addCart' onClick={(e) => {
-                                            e.stopPropagation();
-                                            props.addToCart(1, props.currentIdx, idx);
-                                        }}>
-                                            <ShoppingCartOutlinedIcon className='addCart' />
-                                        </div>
-                                    </div>
-                                </div>
-                            </Grid>
-                        ))}
-                    </Grid>
-                </div>
-            </div>
-        </div >
-        </div >
+          </div>
+        </div>
+      </div>      
     )
 }

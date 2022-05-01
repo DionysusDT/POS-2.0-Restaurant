@@ -387,8 +387,8 @@ export default function Menu() {
          :
          (
           <div className={clsx(styles.container)}>
-           <div className={clsx(styles.menuContainer)}>
-           <div className={clsx(styles.header)}>
+            <div className={clsx(styles.menuContainer)}>
+            <div className={clsx(styles.header)}>
               <div className={clsx(styles.homeIcon)}>
                   <Link to="/">
                     <FaHome />
@@ -399,113 +399,216 @@ export default function Menu() {
                 <FaShoppingCart/>
                 <span>({dataCart.products.length})</span>
               </div>
-           </div>
-          //  <div className='menu'>
-            <Container fluid='lg'>
-               {showModal && <div className={classNames('modal', { open: showModal })}
-                  onClick={() => closeModal()}>
-                  <div className='modal-body' onClick={(e) => e.stopPropagation()}>
-                     <div className='heading'>
-                        <h3>Chi tiết sản phẩm</h3>
-                        <CloseIcon onClick={() => closeModal()} />
-                     </div>
-                     <div className='container'>
-                        <div className='img-wrap'>
-                           <div className='img' style={{
-                              backgroundImage: `url("${dataTag.data[dataTag.currentIdx].products[dataTag.currentIdxProduct]?.imgURL}")`
-                           }}></div>
-                        </div>
-                        <div className='content'>
-                           <div className='title'>
-                              <div className='sku'>
-                                 <h3>STT</h3>
-                                 <p>41</p>
-                              </div>
-                              <div className='name'>
-                                 <h3>{dataTag.data[dataTag.currentIdx].type}</h3>
-                                 <p>{dataTag.data[dataTag.currentIdx].products[dataTag.currentIdxProduct]?.name}</p>
-                              </div>
-                              <div className='price'>
-                                 <h3>Đơn giá</h3>
-                                 <span>{format(dataTag.data[dataTag.currentIdx].products[dataTag.currentIdxProduct]?.price, 'đ')}</span>
-                              </div>
-                           </div>
-                           <div className='quantity'>
-                              <h3>Số lượng</h3>
-                              <div>
-                                 <div className='btn btn-decrease' onClick={() => handleClickDecrease()}><RemoveIcon /></div>
-                                 <span>{dataTag.quantity}</span>
-                                 <div className='btn btn-increase' onClick={() => handleClickIncrease()}><AddIcon /></div>
-                              </div>
-                           </div>
-                           <div className='description'>
-                              <h3>Mô tả món ăn:</h3>
-                              <p>{dataTag.data[dataTag.currentIdx].products[dataTag.currentIdxProduct]?.description}</p>
-                           </div>
-                           <Button className='btn-modal' variant="contained" color="secondary" onClick={() => addToCart()}>
-                              <ShoppingCartOutlinedIcon /> <span>Thêm vào giỏ hàng</span>
-                           </Button>
-                        </div>
-                     </div>
-                  </div>
-               </div>}
-               //
-               <Menubody data={dataTag.data}
+            </div>
+
+            <Menubody data={dataTag.data}
                   start={dataTag.start}
                   end={dataTag.end}
                   currentIdx={dataTag.currentIdx}
                   onclicknextbtn={onclicknextbtn} onclickprevbtn={onclickprevbtn}
                   handleClickTag={handleClickTag}
                   addToCart={addToCart}
-                  openModal={openModal}></Menubody>
-               <div className={classNames('cart', { cartOpen: showCart })}
-                  onClick={() => closeCart()}>
-                  <div className='cart-wrap' onClick={(e) => e.stopPropagation()} >
-                     <div className='cart-header'>
-                        <ShoppingCartIcon className='cart-icon' /><span>Giỏ hàng({dataCart.products.length})</span>
-                        <CloseIcon className='cart-close' onClick={() => closeCart()} />
-                     </div>
-                     <div className='container'>
-                        {dataTag.data.length !== 0 && dataCart.products.map((item, idx) => (
-                           <div className='product' key={idx}>
-                              <div className='product-wrap'>
-                                 <img src={`${dataTag.data[item.currentIdx].products[item.currentIdxProduct].imgURL}`} alt="img" />
-                              </div>
-                              <div className='body'>
-                                 <p><span>{idx + 1}. </span>{dataTag.data[item.currentIdx].products[item.currentIdxProduct].name}</p>
-                                 <div className='body-wrap'>
-                                    <div className='quantity'>
-                                       <div className='btn btn-decrease' onClick={() => {
-                                          handleClickDecreaseCart(item.currentIdxProduct, item.currentIdx)
-                                       }} ><RemoveIcon /></div>
-                                       <span>{item.quantity}</span>
-                                       <div className='btn btn-increase' onClick={() => {
-                                          handleClickIncreaseCart(item.currentIdxProduct, item.currentIdx)
-                                       }}><AddIcon /></div>
-                                    </div>
-                                    <div className='price-wrap'>
-                                       <div className='price'>{format(item.totalPrice, 'đ')}</div>
-                                       <div>{dataTag.data[item.currentIdx].type}</div>
-                                    </div>
-                                 </div>
-                                 <RemoveCircleOutlineIcon className='product-close' onClick={() => removeProduct(idx)} />
-                              </div>
-                           </div>
-                        ))}
-                     </div>
-                     <div className='cart-footer'>
-                        <div className='cart-footer-wrap'>
-                           <h3>Tổng:</h3>
-                           <p>{dataCart.totalOrder ? format(dataCart.totalOrder, 'đ') : 'đ0'}</p>
+                  openModal={openModal}>
+            </Menubody>
+
+               {showModal && (
+                  <div className={clsx(styles.dialogWrapper, { open: showModal })} onClick={() => closeModal()}>
+                    <div className={clsx(styles.dialogInformation)} onClick={(e) => e.stopPropagation()}>
+                      <div className={clsx(styles.dialogTitle)}>
+                        <p>
+                          <strong>Chi tiết sản phẩm</strong>
+                        </p>
+                        <p
+                          style={{ cursor: "pointer" }}
+                          onClick={() => closeModal()}
+                        >
+                          <strong>X</strong>
+                        </p>
+                      </div>
+                      <div className={clsx(styles.dialogDetails)}>
+                        <div className={clsx(styles.dialogImage)}>
+                          <img src={dataTag.data[dataTag.currentIdx].products[dataTag.currentIdxProduct]?.imgURL} alt="" />
                         </div>
-                        <div className='discount'></div>
-                        <Button className='btn-modal' variant="contained" color="secondary" onClick={handlePayment}>Thanh toán</Button>
-                     </div>
+                        <div className={clsx(styles.dialogProductInformation)}>
+                          <table style={{ width: "100%" }} className>
+                            <tr>
+                              <td>SKU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                              <td>{dataTag.data[dataTag.currentIdx].type}</td>
+                              <td style={{ textAlign: "right" }}>Đơn giá</td>
+                            </tr>
+                            <tr style={{ height: 50 }}>
+                              <td>401&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                              <td>{dataTag.data[dataTag.currentIdx].products[dataTag.currentIdxProduct]?.name}</td>
+                              <td
+                                style={{
+                                  textAlign: "right",
+                                  color: "red",
+                                  fontSize: 22,
+                                }}
+                              >
+                                <strong>{format(dataTag.data[dataTag.currentIdx].products[dataTag.currentIdxProduct]?.price, 'đ')}</strong>
+                              </td>
+                            </tr>
+                          </table>
+                          <div className={clsx(styles.dialogQuantity)}>
+                            Số lượng
+                            <p
+                              style={{
+                                textAlign: "left",
+                                display: "flex",
+                                alignItems: "center",
+                              }}
+                            >
+                              <p
+                                className={styles.dialogDecrease}
+                                onClick={() => handleClickDecrease()}
+                              >
+                                -
+                              </p>
+                              <p style={{ padding: 20 }}>{dataTag.quantity}</p>
+                              <p
+                                className={styles.dialogIncrease}
+                                onClick={() => handleClickIncrease()}
+                              >
+                                +
+                              </p>
+                            </p>
+                          </div>
+                          <p style={{ paddingTop: 20 }}>
+                            <strong>Mô tả món ăn:&ensp;&nbsp;</strong>
+                            <strong style={{ color: "rgba(0,0,0,0.3)" }}>
+                            {dataTag.data[dataTag.currentIdx].products[dataTag.currentIdxProduct]?.description}
+                            </strong>
+                          </p>
+                          
+                          
+    
+                          <div className={clsx(styles.addToCart)}>
+                            <button
+                              style={{
+                                width: "70%" ,
+                                fontSize: "1.6rem",
+                                height: "30%"
+                              }}
+                              onClick={() => addToCart()}
+                            >
+                              <FaShoppingCart />
+                              &ensp;&nbsp;Kr {"1"}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-               </div>
-            </Container>
-          // </div>
+              )}
+               
+               
+
+               {showCart && (<div className={clsx(styles.cartWrapper,{ cartOpen: showCart })}>
+                  <div className={clsx(styles.cartContainer)}>
+
+                    <div className={clsx(styles.cartHeader)}>
+                      <p className={clsx(styles.yourCart)}>
+                        <span
+                          style={{
+                            color: "red",
+                            fontSize: 25,
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <FaShoppingCart />
+                          &ensp;&nbsp;
+                        </span>
+                        <span style={{ color: "red", fontWeight: "bold" }}>
+                          Giỏ hàng({dataCart.products.length})
+                        </span>
+                      </p>
+                      <p className={clsx(styles.diveIn)} onClick={() => closeCart()}>
+                        DINE IN
+                      </p>
+                    </div>
+
+                    <div className={clsx(styles.cartItems)}>
+                      {dataTag.data.length !== 0 && dataCart.products.map((item, idx) => {
+                        {
+                          return (
+                           (
+                            <div key={idx} className={clsx(styles.cartItem)}>
+                              <div className={clsx(styles.cartImageItem)}>
+                                <img src={dataTag.data[item.currentIdx].products[item.currentIdxProduct].imgURL} alt="" />
+                              </div>
+                              <div className={clsx(styles.cartQuantity)}>
+                                <p style={{ marginBottom: 15 }}>1. {dataTag.data[item.currentIdx].products[item.currentIdxProduct].name}</p>
+                                <p
+                                  style={{
+                                    textAlign: "left",
+                                    display: "flex",
+                                    alignItems: "center",
+                                  }}
+                                >
+                                  <p
+                                    className={styles.dialogDecrease}
+                                    onClick={() => {
+                                      handleClickDecreaseCart(item.currentIdxProduct, item.currentIdx)
+                                   }}
+                                  >
+                                    -
+                                  </p>
+                                  <p style={{ padding: "0 20px" }}>
+                                    {item.quantity}
+                                  </p>
+                                  <p
+                                    className={styles.dialogIncrease}
+                                    onClick={() => {
+                                      handleClickIncreaseCart(item.currentIdxProduct, item.currentIdx)
+                                   }}
+                                  >
+                                    +
+                                  </p>
+                                </p>
+                              </div>
+                              <div className={clsx(styles.cartCost)}>
+                                <p
+                                  style={{
+                                    color: "red",
+                                    fontWeight: "bold",
+                                    textAlign: "left",
+                                  }}
+                                >
+                                  {format(item.totalPrice, 'đ')}
+                                </p>
+                                <RemoveCircleOutlineIcon className='product-close' onClick={() => removeProduct(idx)} />
+                              </div>
+                            </div>
+                          ));
+                          }
+                      })}
+                    </div>
+
+                    <div className={clsx(styles.cartTotalCost)}>
+                      <p style={{ fontSize: 20, fontWeight: "bold" }}>Total: </p>
+                      <p>
+                        <p
+                          style={{
+                            fontSize: 20,
+                            fontWeight: "bold",
+                            color: "red",
+                            textAlign: "right",
+                          }}
+                        >
+                          {dataCart.totalOrder ? format(dataCart.totalOrder, 'đ') : 'đ0'}
+                        </p>
+                      </p>
+                    </div>
+                    <div className={clsx(styles.cartPayment)} onClick={handlePayment}>Thanh toán</div>
+                  </div>
+                </div>
+               )}            
+
          </div>
+         
               
         </div>
          )
