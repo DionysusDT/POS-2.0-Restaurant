@@ -1,5 +1,6 @@
 import Payment from './components/payment/Payment'
 import Menu from'./components/menu/Menu'
+// import Menubody from'./components/menu/Menubody'
 import Home from'./components/home/Home'
 import Signin from './components/signin/Signin'
 import Userprofile from './components/userprofile/Userprofile'
@@ -8,10 +9,8 @@ import ChefHome from "./components/clerkchef/chefhome/Chef";
 import ShipperHome from "./components/shipper/shipperhome/ShipperHome";
 import Register from './components/register/Register';
 import {  Routes, Route } from "react-router-dom";
-import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
-import { DarkModeContext } from "./components/context/darkModeContext";
 import {useState} from 'react'
 function App() {
   const [app, setApp] = useState('Menu')
@@ -29,7 +28,7 @@ function App() {
       <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/Menu" element={<Menu/>} />
-          {/* <Route path="/" element={app === 'Menu' ? <Menu changeApp={handleChangePaymentApp}/> :<Payment changeApp={handleChangeMenuApp}/>} /> */}
+          {/* <Route path="/" element={app === 'Payment' ? <Payment changeApp={handleChangeMenuApp}/>:null }/> */}
           <Route path="/">
             <Route path="admin" index element={ <AdminHome />} />
             <Route path="chef" index element={ <ChefHome />} />

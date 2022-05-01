@@ -108,7 +108,7 @@ function Menu() {
          }
          axios.request(reqOptions).then(function (response) {
             setDataTag({
-               ...dataTag,
+              //  ...dataTag,
                data: response.data
             })
          })
@@ -238,7 +238,7 @@ function Menu() {
     setShowModal(false);
  }
  function openModal(idx) {
-    // if (window.innerWidth > 800) {
+    if (window.innerWidth > 800) {
        setShowModal(true);
        setDataTag({
           ...dataTag,
@@ -246,7 +246,7 @@ function Menu() {
           currentIdxProduct: idx,
           quantity: 1,
        })
-    // }
+    }
  }
  function closeCart() {
     setShowCart(false);
@@ -360,15 +360,8 @@ function Menu() {
               {!showCart && <FaShoppingCart  onClick={() => setShowCart(true)} /> }
               <span>Giỏ hàng({dataCart.products.length})</span>
             </div>
-          </div>  
-        <Menubody 
-          data={dataTag.data}
-          currentIdx={dataTag.currentIdx}
-          onclicknextbtn={onclicknextbtn} onclickprevbtn={onclickprevbtn}
-          handleClickTag={handleClickTag}
-          addToCart={addToCart}
-          openModal={openModal}
-        >
+        </div>  
+        <Menubody>
           
         </Menubody> 
           {/* {showModal && <div className={classNames('modal', { open: showModal })}
@@ -418,8 +411,8 @@ function Menu() {
                      </div>
                   </div>
                </div>} */}
-          </div>
-        </div>
+               </div>
+      </div>
   )
 }
 
