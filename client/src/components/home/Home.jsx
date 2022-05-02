@@ -36,6 +36,11 @@ export default function Home() {
                                 Gọi món
                             </Link>
                         </li>}
+                        {permission === 'customer' && isAuthen && <li>
+                            <Link to="/customer">
+                                Đơn hàng của tôi
+                            </Link>
+                        </li>}
                         {permission === 'chef' &&
                             <>
                                 <li>

@@ -10,7 +10,7 @@ module.exports = {
                 if (value) {
                     const token = jwt.sign({
                         email: req.body.email,
-                        permission: oldUser.permission
+                        permission: oldUser.permission,
                     }, process.env.SECRET, {
                         expiresIn: 60 * 60
                     })

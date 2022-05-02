@@ -9,6 +9,7 @@ import putProfile from '../../midlewares/putProfile';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SecurityIcon from '@mui/icons-material/Security';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
@@ -16,6 +17,7 @@ import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 
 import axios from 'axios';
+import Home from '@mui/icons-material/Home';
 
 function Userprofile(){
     const [profile, setProfile] = useState({})
@@ -80,25 +82,26 @@ function Userprofile(){
 						}}
 					>
 						<Box id="sidebar" sx={{maxWidth: '35%', py: 8, pr: 6}} style={{borderRight: '4px solid #dfdfdf'}}>
-							<Box 
-								id="sidebar-title" 
-								sx={{fontWeight:600, 
-								fontSize: 20, mb:3}}
-							>	
-								Thông tin tài khoản
-							</Box>
-							<Box 
-								id='sidebar-list' 
-								sx={{display:'flex', flexDirection:'column'}}
-							>
-								<Box 
-									id='sidebar-item' 
-									sx={{display:'flex', alignItems:'center', mb: 1, fontSize: 30}}
-								>
-									<AccountCircleIcon fontSize='inherit'/>
-									<Box sx={{ml: 1, fontSize: 18, display: {xs: 'none', md:'block'}}}>Tài khoản</Box>
-								</Box>
-							</Box>
+							<Link to="/" style={{ textDecoration: "none" }}>
+									<Box 
+										id='sidebar-item' 
+										sx={{display:'flex', alignItems:'center', mb: 1, fontSize: 30}}
+									>
+										<Home fontSize='inherit'/>
+										<Box sx={{ml: 1, fontSize: 18, display: {xs: 'none', md:'block'}}}>Về trang chủ</Box>
+									</Box>
+
+            				</Link>
+							<Link to="/profile" style={{ textDecoration: "none" }}>
+									<Box 
+										id='sidebar-item' 
+										sx={{display:'flex', alignItems:'center', mb: 1, fontSize: 30}}
+									>
+										<AccountCircleIcon fontSize='inherit'/>
+										<Box sx={{ml: 1, fontSize: 18, display: {xs: 'none', md:'block'}}}>Thông tin tài khoản</Box>
+									</Box>
+
+            				</Link>
 						</Box>
 
 						<Box id="body" 
@@ -179,9 +182,7 @@ function Userprofile(){
 									Lưu thay đổi
 								</Button>
 							</form>
-							<Link to="/" style={{ textDecoration: "none" }}>
-                   				 <a href="">Home</a>
-            				</Link>
+							
 						</Box>
 					</Box>
 				</Box>
