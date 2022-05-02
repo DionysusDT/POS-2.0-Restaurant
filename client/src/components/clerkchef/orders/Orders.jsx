@@ -84,6 +84,7 @@ export default function Orders() {
                             <th>STT</th>
                             <th>OrderID</th>
                             <th>Trạng thái</th>
+                            <th>Hình thức</th>
                             <th>Tổng tiền</th>
                             <th>Được tạo vào</th>
                             <th>Cập nhật vào</th>
@@ -94,6 +95,7 @@ export default function Orders() {
                                 <td>{idx}</td>
                                 <td>{val.orderID}</td>
                                 <td>{val.status}</td>
+                                <td>{val.payment}</td>
                                 <td>{format(val.total, 'đ')}</td>
                                 <td>{formatDate(val.createdAt)}</td>
                                 <td>{formatDate(val.updatedAt)}</td>
