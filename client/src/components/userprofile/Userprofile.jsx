@@ -8,6 +8,8 @@ import getProfile from '../../midlewares/getProfile';
 import putProfile from '../../midlewares/putProfile';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import HomeIcon from '@mui/icons-material/Home';
 import SecurityIcon from '@mui/icons-material/Security';
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -29,8 +31,6 @@ function Userprofile(){
 			setProfile(theProfile)
 			if (theProfile.fname || theProfile.lname) 
 				setDisplayName(theProfile.fname.concat(' ').concat(theProfile.lname))
-			// console.log("Profile")
-			// console.log(pf.data['theProfile'])
 		}
 		fetch()
 	}, [changeDB])
@@ -58,11 +58,8 @@ function Userprofile(){
 
 	const handleOnclickSubmitbtn = (e) => {
 		e.preventDefault()
-		// console.log("Handle submit")
-		// console.log(profile)
 		putProfile(profile)
 		setChangeDB(!changeDB)
-		// console.log(res)
 	}
 
 	if (!profile.email) {
@@ -96,7 +93,29 @@ function Userprofile(){
 									sx={{display:'flex', alignItems:'center', mb: 1, fontSize: 30}}
 								>
 									<AccountCircleIcon fontSize='inherit'/>
-									<Box sx={{ml: 1, fontSize: 18, display: {xs: 'none', md:'block'}}}>Tài khoản</Box>
+									<Box sx={{ml: 1, fontSize: 18, display: {xs: 'none', md:'block'}}}>
+										<Link to="/profile" style={{ textDecoration: "none" }}>
+                   				 			<a href="">Tài khoản</a>
+            							</Link>
+									</Box>
+								</Box>
+								<Box 
+									id='sidebar-item' 
+									sx={{display:'flex', alignItems:'center', mb: 1, fontSize: 30}}
+								>
+									<ShoppingCartIcon fontSize='inherit'/>
+									<Box sx={{ml: 1, fontSize: 18, display: {xs: 'none', md:'block'}}}>Đơn hàng</Box>
+								</Box>
+								<Box 
+									id='sidebar-item' 
+									sx={{display:'flex', alignItems:'center', mb: 1, fontSize: 30}}
+								>
+									<HomeIcon fontSize='inherit'/>
+									<Box sx={{ml: 1, fontSize: 18, display: {xs: 'none', md:'block'}}}>
+										<Link to="/" style={{ textDecoration: "none" }}>
+                   				 			<a href="">Back to home</a>
+            							</Link>
+									</Box>
 								</Box>
 							</Box>
 						</Box>
@@ -114,8 +133,7 @@ function Userprofile(){
 									<Box sx={{fontSize: 20, }}>Không tên</Box>
 									:
 									<Box sx={{fontSize: 20, }}>{displayName}</Box>
-									}
-									<Box sx={{fontSize: 14, }}>{profile.username}</Box>
+									}	
 								</Box>
 							</Box>
 							<form onSubmit={handleOnclickSubmitbtn}>
@@ -179,9 +197,6 @@ function Userprofile(){
 									Lưu thay đổi
 								</Button>
 							</form>
-							<Link to="/" style={{ textDecoration: "none" }}>
-                   				 <a href="">Home</a>
-            				</Link>
 						</Box>
 					</Box>
 				</Box>

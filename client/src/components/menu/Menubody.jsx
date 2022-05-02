@@ -27,9 +27,10 @@ export default function Menubody(props) {
                   className={classNames('prev-btn', { disable: (() => props.currentIdx === 0 ? true : false)() })} onClick={() => props.onclickprevbtn()}
                   style={{
                     alignSelf: "center",
-                    fontSize: 50,
+                    fontSize: 40,
                     cursor: "pointer",
-                    margin: 0,
+                    marginLeft: -30,
+                    marginRight: -10
                   }}
                 >
                   <FaAngleLeft />
@@ -57,17 +58,14 @@ export default function Menubody(props) {
                   return null
                 })}
                     
-                
-
                 <div
                   className={classNames('next-btn', { disable: (() => props.data.length - 1 === props.currentIdx ? true : false)() })} onClick={() => props.onclicknextbtn()}
                   style={{
                     alignSelf: "center",
-                    fontSize: 50,
+                    fontSize: 40,
                     cursor: "pointer",
-                    margin: 0,
-                    marginLeft: "auto",
                     position: "absolute",
+                    marginLeft: 0,
                     right: "0",
                     top: 'calc(50% - 20px)'
                   }}

@@ -391,12 +391,12 @@ export default function Menu() {
             <div className={clsx(styles.header)}>
               <div className={clsx(styles.homeIcon)}>
                   <Link to="/">
-                    <FaHome />
+                    <HomeIcon />
                   </Link>
               </div>
-              <div className={clsx(styles.content)}>Về trang chủ</div>
+              <div className={clsx(styles.content)}>Trang chủ</div>
               <div className={clsx(styles.takeCart)} style={{ marginRight: 35 }} onClick={() => openCart()}s>
-                <FaShoppingCart/>
+                <ShoppingCartIcon/>
                 <span>({dataCart.products.length})</span>
               </div>
             </div>
