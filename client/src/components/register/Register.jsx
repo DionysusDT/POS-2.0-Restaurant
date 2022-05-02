@@ -147,16 +147,6 @@ export default function Register({onShowRegister,changeApp}) {
                             <label className={clsx(styles.formLabel)} for="password">Password</label>
                             
                         </div>
-                        <div style={{width: '100%', position: 'relative', marginTop: 40}}>
-                            <input className= {clsx(styles.loginInput)}type="phone" name="phone" id='phone' onChange={handleOnchangePass} />
-                            <label className={clsx(styles.formLabel)} for="phone">Phone</label>
-                            
-                        </div>
-                        <div style={{width: '100%', position: 'relative', marginTop: 40}}>
-                            <input className= {clsx(styles.loginInput)}type="address" name="address" id='address' onChange={handleOnchangePass} />
-                            <label className={clsx(styles.formLabel)} for="address">Address</label>
-                            
-                        </div>
                         <button className={clsx(styles.submitForm)} onClick={handleRegister}>Đăng kí</button>
                     {
                         error &&

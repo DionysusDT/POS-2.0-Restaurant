@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 async function connect(){
     try{
-        mongoose.connect('mongodb://127.0.0.1:27017/POS', {
+        mongoose.connect('mongodb://127.0.0.1:27017/CNPM', {
             useNewUrlParser: true, 
             useUnifiedTopology: true
         });

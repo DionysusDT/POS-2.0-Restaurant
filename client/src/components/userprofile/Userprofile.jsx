@@ -63,6 +63,7 @@ function Userprofile(){
 			...profile,
 			address: e.target.value
 		})
+		console.log(profile.address)
 	}
 
 	const handleOnclickSubmitbtn = (e) => {
