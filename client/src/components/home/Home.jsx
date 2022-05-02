@@ -64,9 +64,9 @@ export default function Home() {
                                     </Link>
                                 </li>
                                 <li>
-                                    <div onClick={handleLogout}>
+                                    <Link to="" onClick={handleLogout}>
                                         Đăng xuất
-                                    </div>
+                                    </Link>
                                 </li>
                             </>
                             :
@@ -85,10 +85,10 @@ export default function Home() {
                     </ul>
                 </div>
                 <div className={clsx(styles.typing_effect)} >
-                    {/* <img src="https://logopond.com/logos/e6b478cef54b8fb8acfd1b4dee22f543.png" alt='logo' />     */}
+                    <img src=".\logo.png" alt='logo'/>    
                     <ReactTypingEffect
-                        speed={80}
-                        text={["Chào mừng quý khách ghé thăm nhà hàng của chúng tôi!!!"]}
+                        speed={85}
+                        text={["Welcome to restaurant 2.0"]}
                         cursorRenderer={cursor => <h1>{cursor}</h1>}
                         displayTextRenderer={(text, i) => {
                             return (
