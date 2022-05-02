@@ -443,12 +443,12 @@ export default function Menu() {
             <div className={clsx(styles.header)}>
               <div className={clsx(styles.homeIcon)}>
                   <Link to="/">
-                    <FaHome />
+                    <HomeIcon />
                   </Link>
               </div>
-              <div className={clsx(styles.content)}>Về trang chủ</div>
+              <div className={clsx(styles.content)}>Trang chủ</div>
               <div className={clsx(styles.takeCart)} style={{ marginRight: 35 }} onClick={() => openCart()}s>
-                <FaShoppingCart/>
+                <ShoppingCartIcon/>
                 <span>({dataCart.products.length})</span>
               </div>
             </div>
@@ -545,7 +545,7 @@ export default function Menu() {
                               onClick={() => addToCart()}
                             >
                               <FaShoppingCart />
-                              &ensp;&nbsp;Kr {"1"}
+                              &ensp;&nbsp;Add to cart
                             </button>
                           </div>
                         </div>
@@ -701,7 +701,7 @@ export default function Menu() {
                         </span>
                       </p>
                       <p className={clsx(styles.diveIn)} onClick={() => closeCart()}>
-                        DINE IN
+                        CLOSE
                       </p>
                     </div>
 

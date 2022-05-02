@@ -8,6 +8,8 @@ import getProfile from '../../midlewares/getProfile';
 import putProfile from '../../midlewares/putProfile';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import HomeIcon from '@mui/icons-material/Home';
 import SecurityIcon from '@mui/icons-material/Security';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import Box from '@mui/material/Box'
@@ -31,8 +33,6 @@ function Userprofile(){
 			setProfile(theProfile)
 			if (theProfile.fname || theProfile.lname) 
 				setDisplayName(theProfile.fname.concat(' ').concat(theProfile.lname))
-			// console.log("Profile")
-			// console.log(pf.data['theProfile'])
 		}
 		fetch()
 	}, [changeDB])
@@ -58,13 +58,17 @@ function Userprofile(){
 		})
 	}
 
+	const handleOnChangeAddress = (e) => {
+		setProfile({
+			...profile,
+			address: e.target.value
+		})
+	}
+
 	const handleOnclickSubmitbtn = (e) => {
 		e.preventDefault()
-		// console.log("Handle submit")
-		// console.log(profile)
 		putProfile(profile)
 		setChangeDB(!changeDB)
-		// console.log(res)
 	}
 
 	if (!profile.email) {
@@ -82,6 +86,7 @@ function Userprofile(){
 						}}
 					>
 						<Box id="sidebar" sx={{maxWidth: '35%', py: 8, pr: 6}} style={{borderRight: '4px solid #dfdfdf'}}>
+
 							<Link to="/" style={{ textDecoration: "none" }}>
 									<Box 
 										id='sidebar-item' 
@@ -102,6 +107,7 @@ function Userprofile(){
 									</Box>
 
             				</Link>
+
 						</Box>
 
 						<Box id="body" 
@@ -118,7 +124,7 @@ function Userprofile(){
 									:
 									<Box sx={{fontSize: 20, }}>{displayName}</Box>
 									}
-									<Box sx={{fontSize: 14, }}>{profile.username}</Box>
+									<Box sx={{fontSize: 20, }}>{profile.email}</Box>
 								</Box>
 							</Box>
 							<form onSubmit={handleOnclickSubmitbtn}>
@@ -150,13 +156,11 @@ function Userprofile(){
 										</Grid>
 										<Grid item xs={12} md={6}>
 											<TextField 
-												variant="outlined" 
 												fullWidth 
-												required
-												disabled 
-												// label='Địa chỉ email' 
-												type='email' 
-												defaultValue={profile.email}
+												variant="outlined" 
+												label='Địa chỉ' 
+												defaultValue={profile.address}
+												onChange={handleOnChangeAddress}
 												InputProps={{ style: { fontSize: 14 } }}
 												InputLabelProps={{ style: { fontSize: 14 } }}
 											/>
@@ -182,7 +186,9 @@ function Userprofile(){
 									Lưu thay đổi
 								</Button>
 							</form>
+
 							
+
 						</Box>
 					</Box>
 				</Box>

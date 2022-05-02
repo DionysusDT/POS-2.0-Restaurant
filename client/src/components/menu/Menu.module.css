@@ -23,7 +23,7 @@ html {
    
 }
 .header{
-    background-color: #fff;
+    background-color: black;
     display: flex;
     height: 80px;
     align-items: center;
@@ -34,10 +34,10 @@ html {
 }
 
 .header .content {
-    background-color: #fff;
+    background-color: black;
     font-weight: bold;
     font-size: 20px;
-    color: #2c3a57;
+    color: white;
     flex-grow: 1;
 }
 
@@ -46,8 +46,8 @@ html {
     height: 55px;
     margin: 20px;
     font-size: 40px;
-    color: #fff;
-    background-color: #2c3a57;
+    color: rgb(143, 50, 50);
+    background-color: white;
     border-radius: 15px;
     display: flex;
     justify-content: space-around;
@@ -55,14 +55,27 @@ html {
 
 }
 
+.header .ShoppingCartIcon {
+    width: 55px;
+    height: 55px;
+    margin: 20px;
+    font-size: 40px;
+    color: rgb(143, 50, 50);
+    background-color: white;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .takeCart {
     transition: 0.3s;
     font-size: 30px;
-
+    color: white;
 }
 
 .takeCart:hover{
-    color: red;
+    color: purple;
     cursor: pointer;
     font-size: 35px;
 
@@ -91,14 +104,8 @@ html {
 
 .categoryWrapperImg img {
     position: relative;
-   
-    /* max-width: 100px;
-    max-height: 100px;
-    min-height: 60px;
-    min-width: 60px; */
     width: 100%;
     height: 100%;
-    /* left: 50%; */
     border-radius: 20px;
 }
 
@@ -106,7 +113,7 @@ html {
     max-width: 100%;
     max-height: 100%;
     width: 15vw;
-    height: 95%;
+    height: 100%;
     background-color: #fff;
     min-width: 100px;
     min-height: 100px;
@@ -123,15 +130,14 @@ html {
     display: flex;
     padding-top: 20px;
     flex-wrap: wrap;
-   align-items: center;
+    align-items: center;
     height: 30vh;
    overflow-y: hidden;
    position: relative;
-   justify-content: space-evenly;
 } 
 
 .categories div{
-    margin: 10px;
+    margin: 22px;
 }
 
 .listFood {
@@ -587,12 +593,12 @@ input[type="checkbox"]:checked::after{
 
 .cartPayment{
     text-align: center;
-    height: 70px;
-    min-height: 70px;
+    height: 60px;
+    min-height: 60px;
     margin-top: auto;
     background-color: red;
     border-radius: 15px;
-    font-size:30px;
+    font-size:25px;
     color: #fff;
     font-weight: bold;
     display: flex;
