@@ -13,19 +13,45 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { useNavigate } from "react-router-dom";
 import verifyToken from '../../midlewares/verifyToken';
+import MenuItem from '@mui/material/MenuItem'
+import Select from '@mui/material/Select'
 import socketClient from "socket.io-client";
 import clsx from "clsx";
 import styles from "./Menu.module.css";
+import getProfile from '../../midlewares/getProfile';
 import {
   FaHome,
   FaShoppingCart,
   FaAngleLeft,
   FaAngleRight,
+  FaMoneyBill
 } from "react-icons/fa";
 const SERVER = "http://localhost:4000/";
 const classNames = require('classnames');
 
 export default function Menu() {
+
+   const [profile, setProfile] = useState({})
+	const [displayName, setDisplayName] = useState('')
+	const [changeDB, setChangeDB] = useState('')
+   const [payments, setPayment] = useState('online');
+   
+   
+
+	useEffect(() => {
+		const fetch = async () => {
+			const pf = await getProfile()
+			const theProfile = pf.data['theProfile']
+			setProfile(theProfile)
+         // console.log(theProfile)
+			if (theProfile.fname || theProfile.lname) 
+				setDisplayName(theProfile.fname.concat(' ').concat(theProfile.lname))
+			// console.log("Profile")
+			// console.log(pf.data['theProfile'])
+		}
+		fetch()
+	}, [changeDB])
+
   const navigate = useNavigate();
    const [dataTag, setDataTag] = useState(() => {
       const { start, end, responsive } = (() => {
@@ -76,6 +102,7 @@ export default function Menu() {
    }
    );
    const [showModal, setShowModal] = useState(false);
+   const [showModalPayment, setShowModalPayment] = useState(false);
    const [showCart, setShowCart] = useState(false);
    const [dataCart, setDataCart] = useState(() => {
       const data = JSON.parse(localStorage.getItem('ORDER'));
@@ -219,6 +246,7 @@ export default function Menu() {
          quantity: dataTag.quantity + 1
       })
    }
+
    function handleClickDecrease() {
       if (dataTag.quantity === 1) return;
       setDataTag({
@@ -260,6 +288,7 @@ export default function Menu() {
          products
       })
    }
+   
    function removeProduct(idx) {
       var products = [];
       dataCart.products.forEach((item, index) => {
@@ -276,6 +305,9 @@ export default function Menu() {
    function closeModal() {
       setShowModal(false);
    }
+   function closeModalPayment() {
+      setShowModalPayment(false);
+   }
    function openModal(idx) {
       if (window.innerWidth > 800) {
          setShowModal(true);
@@ -285,6 +317,17 @@ export default function Menu() {
             currentIdxProduct: idx,
             quantity: 1,
          })
+      }
+   }
+   function openModalPayment(dataCart) {
+      if (window.innerWidth > 800) {
+         setShowModalPayment(true);
+         // setDataTag({
+         //    ...dataTag,
+         //    currentIdx: dataTag.currentIdx,
+         //    currentIdxProduct: idx,
+         //    quantity: 1,
+         // })
       }
    }
    function closeCart() {
@@ -332,9 +375,16 @@ export default function Menu() {
    }
    async function handlePayment() {
       try {
-         setMessage('Vui lòng đợi thu ngân xác nhận đơn hàng, không chuyển trang hoặc f5');
+         if(payments == "online"){
+            setMessage('Vui lòng thanh toán bằng QR code bên dưới và đợi đầu bếp xác nhận đơn hàng, không chuyển trang hoặc f5')
+         }
+         if(payments == "offline"){
+            setMessage('Vui lòng đợi đầu bếp xác nhận đơn hàng của bạn, không chuyển trang hoặc f5')
+         }
          const info = verifyToken();
          var email = '';
+         var phone ='';
+         var address ='';
          if (info) {
             await info.then(res => {
                email = res.data.email;
@@ -343,6 +393,7 @@ export default function Menu() {
          var data = {
             email: email,
             total: dataCart.totalOrder,
+            payment: payments,
             products: dataCart.products.map((item) => {
                const {
                   quantity,
@@ -366,8 +417,8 @@ export default function Menu() {
                socket.on(`${res.orderId}`, (status) => {
                   localStorage.setItem('ORDER', null);
                   socket.disconnect();
-                  if (status === 'confirmed') navigate('/payment');
-                  else if (status === 'cancel') setMessage('Đơn hàng của bạn đã bị hủy bởi thu nhân');
+                  if (status === 'confirmed') navigate('/profile');
+                  else if (status === 'cancel') setMessage('Đơn hàng của bạn đã bị hủy bởi đầu bếp');
                })
             }
             else {
@@ -380,6 +431,7 @@ export default function Menu() {
       }
    }
    return (
+      
       message ?
          <div className='message'>
             <h1>{message}</h1>
@@ -501,6 +553,129 @@ export default function Menu() {
                     </div>
                   </div>
               )}
+
+              {showModalPayment && (
+               <div className={clsx(styles.dialogWrapper, { open: showModalPayment })} onClick={() => closeModalPayment()}>
+                 <div className={clsx(styles.dialogInformation)} onClick={(e) => e.stopPropagation()}>
+                   <div className={clsx(styles.dialogTitle)}>
+                     <p>
+                       <strong>Thanh toán</strong>
+                     </p>
+                     <p
+                       style={{ cursor: "pointer" }}
+                       onClick={() => closeModalPayment()}
+                     >
+                       <strong>X</strong>
+                     </p>
+                   </div>
+                   <div className={clsx(styles.dialogDetails)}>
+                     <div className={clsx(styles.dialogProductInformation)}>
+                       <table style={{ width: "100%" }} className>
+                         <tr>
+                           <td>Tên món ăn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                           <td>Số lượng</td>
+                           <td>Đơn giá</td>
+                           <td style={{ textAlign: "right" }}>Tiền</td>
+                         </tr>
+                         
+                        {dataCart.products.map((item, idx) => {
+                           {
+                              return (
+                              (
+                                 <tr style={{ height: 50 }}>
+                                    <td>{item.name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    <td>{item.quantity}</td>
+                                    <td>{format(item.price, 'đ')}</td>
+                                    <td
+                                    style={{
+                                       textAlign: "right",
+                                       
+                                       fontSize: 19,
+                                    }}
+                                    >
+                                    <strong>{format(item.totalPrice, 'đ')}</strong>
+                                    </td>
+                                 </tr>  
+                              )
+                        )
+                        }    
+                        })}                   
+                       </table>
+                       <div className={clsx(styles.dialogQuantity)}>
+                       Tổng đơn
+                       <p
+                         style={{
+                           textAlign: "left",
+                           display: "flex",
+                           alignItems: "center",
+                         }}
+                       >
+                        <p style={{
+                           textAlign: "right",
+                           color: "red",
+                           fontSize: 30,
+                         }}>{format(dataCart.totalOrder, 'đ')}</p>
+                         </p>
+                        </div>
+
+                       <p style={{ paddingTop: 20 }}>
+                         <strong>Email:&ensp;&nbsp;</strong>
+                         <strong style={{ color: "rgba(0,0,0,0.3)" }}>
+                           {profile.email}
+                         </strong>
+                       </p>
+                       <p style={{ paddingTop: 20 }}>
+                         <strong>Phone:&ensp;&nbsp;</strong>
+                         <strong style={{ color: "rgba(0,0,0,0.3)" }}>
+                         {profile.phone}
+                         </strong>
+                       </p>
+                       <p style={{ paddingTop: 20 }}>
+                         <strong>Address:&ensp;&nbsp;</strong>
+                         <strong style={{ color: "rgba(0,0,0,0.3)" }}>
+                         {profile.address}
+                         </strong>
+                       </p>
+                       <p style={{ paddingTop: 20 }}>
+                         <strong>Hình thức:&ensp;&nbsp;</strong>
+                         <strong style={{ color: "rgba(0,0,0,0.3)" }}>
+                           <Select
+                              value = {payments}
+                              labelId="role-select"
+                              variant="outlined"
+                              onChange={(e) => {
+                                 setPayment(e.target.value)
+                              }}
+                           >
+                              <MenuItem value="online" style={{ fontSize: "14px" }}>
+                                 Online bằng QR code
+                              </MenuItem>
+                              <MenuItem value="offline" style={{ fontSize: "14px" }}>
+                                 Thanh toán khi nhận hàng
+                              </MenuItem>
+                           </Select>
+                         </strong>
+                       </p>
+                        
+                       <div className={clsx(styles.addToCart)}>
+                         <button
+                           style={{
+                             width: "70%" ,
+                             fontSize: "1.6rem",
+                             height: "30%"
+                           }}
+                           onClick={handlePayment}
+                         >
+                           <FaMoneyBill />
+                           &ensp;&nbsp; {"Xác nhận thanh toán"}
+                         </button>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+           )}
+           
                
                
 
@@ -602,7 +777,8 @@ export default function Menu() {
                         </p>
                       </p>
                     </div>
-                    <div className={clsx(styles.cartPayment)} onClick={handlePayment}>Thanh toán</div>
+                    <div className={clsx(styles.cartPayment,{ open: showModalPayment })} onClick={() => openModalPayment()}>Thanh toán</div>
+
                   </div>
                 </div>
                )}            

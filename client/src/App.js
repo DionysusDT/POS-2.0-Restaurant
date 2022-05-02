@@ -8,6 +8,7 @@ import AdminHome from "./components/admin/adminhome/AdminHome";
 import ChefHome from "./components/clerkchef/chefhome/Chef";
 import ShipperHome from "./components/shipper/shipperhome/ShipperHome";
 import Register from './components/register/Register';
+import CustomerHome from './components/customer/cushome/cus'
 import {  Routes, Route } from "react-router-dom";
 import "./style/dark.scss";
 import { useContext } from "react";
@@ -33,6 +34,7 @@ function App() {
             <Route path="admin" index element={ <AdminHome />} />
             <Route path="chef" index element={ <ChefHome />} />
             <Route path="shipper" index element={ <ShipperHome />} />
+            <Route path="customer" index element={ <CustomerHome />} />
             <Route path="register">
               <Route index element={<Register />} />
             </Route>

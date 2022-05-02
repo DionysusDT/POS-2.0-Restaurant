@@ -1,7 +1,7 @@
 import styles from "./Payment.module.css";
 import clsx from "clsx";
 import { FaArrowLeft } from "react-icons/fa";
-function Payment({changeApp}) {
+function Payment({}) {
   return (
     <div
       style={{
@@ -12,9 +12,6 @@ function Payment({changeApp}) {
       }}
     >
       <div className={clsx(styles.header)}>
-        <div className={clsx(styles.homeIcon)} onClick={()=>changeApp()}>
-          <FaArrowLeft />
-        </div>
         <div className={clsx(styles.content)} >Back</div>
         <div className={clsx(styles.title)} style={{ marginRight: 35 }}>
           PAYMENT
@@ -25,81 +22,25 @@ function Payment({changeApp}) {
         <div style={{ marginRight: 40 }}>Payment</div>
       </div>
       <div className={clsx(styles.bodyWrapper)}>
-        <div style={{ width: "33%" }}>
+        <div style={{ width: "100%" }}>
           <div className={clsx(styles.business)}>
+
             <p style={{ display: "flex", justifyContent: "space-between" }}>
               <strong>Business name</strong>
               <strong>25.00 NOK</strong>
             </p>
             <p style={{ display: "flex", justifyContent: "space-between" }}>
+              <strong>Business name</strong>
+              <strong>25.00 NOK</strong>
+            </p>
+            {/* <p style={{ display: "flex", justifyContent: "space-between" }}>
               <span style={{ fontSize: 13 }}>1 item (expand)</span>
               <span style={{ fontSize: 13 }}>inc. VAT</span>
-            </p>
+            </p> */}
           </div>
-        </div>
-        <div className={clsx(styles.creditCardTitle)}>
-          <div className={clsx(styles.cardNotification)}>
-            Checkout is running in text mode. Click here for test data
-            <div
-              style={{
-                position: "absolute",
-                top: 3,
-                right: 5,
-                cursor: "pointer",
-                userSelect: "none",
-              }}
-            >
-              x
-            </div>
-          </div>
-          <div className={clsx(styles.cardType)}>
-            <div className={clsx(styles.logoWrapper)}>
-              <p className={clsx(styles.logo)}></p>
-              Creadit Card&nbsp;
-              <p
-                style={{
-                  fontSize: 12,
-                  alignSelf: "center",
-                  fontWeight: "normal",
-                }}
-              >
-                {" "}
-                - credit or debit
-              </p>
-            </div>
-            <div className={clsx(styles.visaImage)}>
-              <img
-                src="https://logowik.com/content/uploads/images/857_visa.jpg"
-                style={{ height: "100%", width: "100%", objectFit: "cover" }}
-              />
-              <p className={clsx(styles.masterCard)}></p>
-            </div>
-          </div>
-        </div>
-        <div className={clsx(styles.mainCard)}>
-          <form>
-            <input className={clsx(styles.inputCard)} type="text" />
-            <br></br>
-            <div
-              style={{
-                width: "100%",
-                height: "50px",
-                display: "flex",
-                marginBottom: 20,
-              }}
-            >
-              <input className={clsx(styles.inputCard)} type="text" />
-              <input
-                className={clsx(styles.inputCard)}
-                style={{ marginLeft: 10 }}
-                type="text"
-              />
-            </div>
-            <button className={clsx(styles.checkout)}>Pay NOK 25.00</button>
-          </form>
         </div>
         <div className={clsx(styles.cardCancel)}>Cancel payment</div>
-        <div className={clsx(styles.languages)}>
+        {/* <div className={clsx(styles.languages)}>
           <p style={{ display: "flex", alignItems: "center" }}>
             <img
               style={{
@@ -115,7 +56,7 @@ function Payment({changeApp}) {
             </strong>       
           </p>
           <p style={{fontSize: 13, color:'#0061a1'}}>Terms</p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import './order.scss';
+import './myCart.scss';
 import Button from '@mui/material/Button'
 import verifyToken from "../../../midlewares/verifyToken";
 import socketClient from "socket.io-client";
@@ -19,9 +19,9 @@ function format(n, currency) {
             return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
         }) + currency;
 }
-export default function Orders() {
+export default function MyCart() {
     const [data, setData] = useState(null);
-    const [filter, setFilter] = useState('unconfirmed');
+    const [filter, setFilter] = useState('comfirmed');
     const navigate = useNavigate();
     function getData(filter) {
         var order = getOrder(filter);
@@ -39,14 +39,14 @@ export default function Orders() {
         const getInfo = verifyToken();
         if (getInfo) {
             getInfo.then(res => {
-                if (res.data.permission !== 'chef') {
+                if (res.data.permission !== 'customer') {
                     navigate('/login');
                 }
                 else {
                     getData(filter);
                     try {
                         socket = socketClient(SERVER);
-                        socket.on('chef', () => {
+                        socket.on('customer', () => {
                             getData(filter);
                         })
                     }
@@ -84,7 +84,6 @@ export default function Orders() {
                             <th>STT</th>
                             <th>OrderID</th>
                             <th>Trạng thái</th>
-                            <th>Hình thức</th>
                             <th>Tổng tiền</th>
                             <th>Được tạo vào</th>
                             <th>Cập nhật vào</th>
@@ -95,7 +94,6 @@ export default function Orders() {
                                 <td>{idx}</td>
                                 <td>{val.orderID}</td>
                                 <td>{val.status}</td>
-                                <td>{val.payment}</td>
                                 <td>{format(val.total, 'đ')}</td>
                                 <td>{formatDate(val.createdAt)}</td>
                                 <td>{formatDate(val.updatedAt)}</td>

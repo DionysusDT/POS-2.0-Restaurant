@@ -37,9 +37,6 @@ module.exports = {
                 //     'fname': req.body.firstname,
                 //     'lname': req.body.lastname
                 // });
-                console.log(req.query.phone);
-                console.log(theProfile.address);
-                console.log(1);
                 if (await theProfile.save())
                 {return res.status(200).json({
                     success: 1,
