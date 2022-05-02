@@ -78,7 +78,7 @@ export default function Register({onShowRegister,changeApp}) {
     return (
         <div className= {clsx(styles.home)} >
             <div fluid={clsx(styles.lg)}>
-            <div className={clsx(styles.header)}>
+                <div className={clsx(styles.header)}>
                         <ul>
                             {permission === 'customer' && <li>
                                 <Link to="/Menu">
@@ -121,7 +121,7 @@ export default function Register({onShowRegister,changeApp}) {
                                 :
                                 <> 
                                     <li>
-                                        <Link to="/register">
+                                        <Link to="/login">
                                             <p>Đăng nhập</p>
                                         </Link>
                                     </li>
@@ -130,21 +130,31 @@ export default function Register({onShowRegister,changeApp}) {
                         </ul>
                 </div>
                 <div className= {clsx(styles.form)}>
-                        <h1 style= {{textAlign: 'center', marginBottom: 50}}>Đăng kí</h1>
+                        <h1 style= {{textAlign: 'center', marginBottom: 45}}>Đăng kí</h1>
                         <div style={{width: '100%', position: 'relative'}}>
                             <input className= {clsx(styles.loginInput)}type="text" name="name" id="name"  placeholder="" onChange={handleOnchangeUsername}/>
                             <label className={clsx(styles.formLabel)} for="name">Username</label>
 
                             
                         </div>
-                        <div style={{width: '100%', position: 'relative', marginTop: 45}}>
+                        <div style={{width: '100%', position: 'relative', marginTop: 40}}>
                             <input className= {clsx(styles.loginInput)}type="text" name="email" id='email' placeholder="" onChange={handleOnchangeEmail} />
                             <label className={clsx(styles.formLabel)} for="email">Email</label>
                             
                         </div>
-                        <div style={{width: '100%', position: 'relative', marginTop: 45}}>
+                        <div style={{width: '100%', position: 'relative', marginTop: 40}}>
                             <input className= {clsx(styles.loginInput)}type="password" name="password" id='password' onChange={handleOnchangePass} />
                             <label className={clsx(styles.formLabel)} for="password">Password</label>
+                            
+                        </div>
+                        <div style={{width: '100%', position: 'relative', marginTop: 40}}>
+                            <input className= {clsx(styles.loginInput)}type="phone" name="phone" id='phone' onChange={handleOnchangePass} />
+                            <label className={clsx(styles.formLabel)} for="phone">Phone</label>
+                            
+                        </div>
+                        <div style={{width: '100%', position: 'relative', marginTop: 40}}>
+                            <input className= {clsx(styles.loginInput)}type="address" name="address" id='address' onChange={handleOnchangePass} />
+                            <label className={clsx(styles.formLabel)} for="address">Address</label>
                             
                         </div>
                         <button className={clsx(styles.submitForm)} onClick={handleRegister}>Đăng kí</button>
@@ -154,7 +164,6 @@ export default function Register({onShowRegister,changeApp}) {
                             <h3>{error}</h3>
                         </div>
                     }
-                    <br/>
                 </div>
             </div>
         </div>

@@ -56,6 +56,13 @@ function Userprofile(){
 		})
 	}
 
+	const handleOnChangeAddress = (e) => {
+		setProfile({
+			...profile,
+			address: e.target.value
+		})
+	}
+
 	const handleOnclickSubmitbtn = (e) => {
 		e.preventDefault()
 		putProfile(profile)
@@ -133,7 +140,8 @@ function Userprofile(){
 									<Box sx={{fontSize: 20, }}>Không tên</Box>
 									:
 									<Box sx={{fontSize: 20, }}>{displayName}</Box>
-									}	
+									}
+									<Box sx={{fontSize: 20, }}>{profile.email}</Box>
 								</Box>
 							</Box>
 							<form onSubmit={handleOnclickSubmitbtn}>
@@ -165,13 +173,11 @@ function Userprofile(){
 										</Grid>
 										<Grid item xs={12} md={6}>
 											<TextField 
-												variant="outlined" 
 												fullWidth 
-												required
-												disabled 
-												// label='Địa chỉ email' 
-												type='email' 
-												defaultValue={profile.email}
+												variant="outlined" 
+												label='Địa chỉ' 
+												defaultValue={profile.address}
+												onChange={handleOnChangeAddress}
 												InputProps={{ style: { fontSize: 14 } }}
 												InputLabelProps={{ style: { fontSize: 14 } }}
 											/>

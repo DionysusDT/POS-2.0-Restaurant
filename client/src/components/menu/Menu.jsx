@@ -493,7 +493,7 @@ export default function Menu() {
                               onClick={() => addToCart()}
                             >
                               <FaShoppingCart />
-                              &ensp;&nbsp;Kr {"1"}
+                              &ensp;&nbsp;Add to cart
                             </button>
                           </div>
                         </div>
@@ -526,7 +526,7 @@ export default function Menu() {
                         </span>
                       </p>
                       <p className={clsx(styles.diveIn)} onClick={() => closeCart()}>
-                        DINE IN
+                        CLOSE
                       </p>
                     </div>
 
