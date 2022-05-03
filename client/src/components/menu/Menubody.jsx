@@ -29,8 +29,8 @@ export default function Menubody(props) {
                     alignSelf: "center",
                     fontSize: 40,
                     cursor: "pointer",
-                    marginLeft: -30,
-                    marginRight: -10
+                    marginLeft: 0,
+                    marginRight: 0
                   }}
                 >
                   <FaAngleLeft />
@@ -57,7 +57,6 @@ export default function Menubody(props) {
                   )
                   return null
                 })}
-                    
                 <div
                   className={classNames('next-btn', { disable: (() => props.data.length - 1 === props.currentIdx ? true : false)() })} onClick={() => props.onclicknextbtn()}
                   style={{

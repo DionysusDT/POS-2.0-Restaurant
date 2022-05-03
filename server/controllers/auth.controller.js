@@ -49,6 +49,8 @@ module.exports = {
                 username: req.body.username,
                 password: await bcrypt.hash(req.body.password, 10),
                 email: req.body.email,
+                phone: req.body.phone,
+                address: req.body.address,
                 permission: 'customer'
             })
             await user.save();

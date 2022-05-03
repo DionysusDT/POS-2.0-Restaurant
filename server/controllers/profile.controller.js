@@ -32,9 +32,6 @@ module.exports = {
                 theProfile.fname = req.query.fname || theProfile.fname;
                 theProfile.lname = req.query.lname || theProfile.lname;
                 theProfile.address = req.query.address || theProfile.address;
-                console.log(req.query.address)
-                console.log(theProfile.address)
-                console.log(1)
                 // theProfile.push({
                 //     'username': req.body.username,
                 //     'fname': req.body.firstname,

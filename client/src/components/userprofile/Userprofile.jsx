@@ -125,7 +125,7 @@ function Userprofile(){
 									:
 									<Box sx={{fontSize: 20, }}>{displayName}</Box>
 									}
-									<Box sx={{fontSize: 20, }}>{profile.email}</Box>
+									<Box sx={{fontSize: 20, }}>{profile.email}</Box>	
 								</Box>
 							</Box>
 							<form onSubmit={handleOnclickSubmitbtn}>

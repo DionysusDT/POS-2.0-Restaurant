@@ -11,7 +11,7 @@ const putProfile = (profile) => {
                     fname: profile.fname,
                     lname: profile.lname,
                     phone: profile.phone,
-                    address: profile.address,
+                    address: profile.address
                 },
                 method: "POST",
             }
