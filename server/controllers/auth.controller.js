@@ -16,18 +16,18 @@ module.exports = {
                     })
                     return res.json({
                         success: 1,
-                        message: 'Dang nhap thanh cong',
+                        message: 'Login successfully',
                         token
                     });
                 }
                 return res.json({
                     success: 0,
-                    message: 'Sai mat khau',
+                    message: 'Wrong password',
                 })
             }
             return res.json({
                 success: 0,
-                message: 'Tai khoan khong ton tai'
+                message: 'Invalid account'
             })
         } catch (error) {
             res.json({
@@ -42,7 +42,7 @@ module.exports = {
             if (oldUser) {
                 return res.status(200).json({
                     success: 0,
-                    message: 'Tai khoan da ton tai'
+                    message: 'Account is existed'
                 })
             }
             const user = new User({
@@ -62,7 +62,7 @@ module.exports = {
             })
             res.status(201).json({
                 success: 1,
-                message: 'Dang ki thanh cong',
+                message: 'Successfull registration',
             });
         } catch (error) {
             res.status(500).json({
