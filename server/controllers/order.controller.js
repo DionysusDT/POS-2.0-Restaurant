@@ -124,11 +124,11 @@ module.exports = {
     },
     async getOrderShipper(req, res) {
         try {
-            console.log({
-                permission: req.user.permission,
-                status: req.query.status,
-                process: req.query.process
-            })
+            // console.log({
+            //     permission: req.user.permission,
+            //     status: req.query.status,
+            //     process: req.query.process
+            // })
             // if (req.user.permission === 'chef') {
             //     const order = req.query.status ? await Order.find({ status: req.query.status }) : null;
             //     if (order) {
@@ -166,6 +166,28 @@ module.exports = {
         }
         catch (err) {
             console.log(err);
+        }
+    },
+    async getOrderbyemail(req, res){
+        if (req.user.permission === 'customer') {
+            const order = req.query.email ? await Order.find({ email: req.query.email }) : null;
+            if (order) {
+                return res.json({
+                    success: 1,
+                    order,
+                    message: "thanh cong"
+                })
+            }
+            return res.json({
+                success: 0,
+                message: "that bai"
+            })
+        }
+        else {
+            return res.json({
+                success: 0,
+                message: "Invalid token"
+            })
         }
     }
 }
