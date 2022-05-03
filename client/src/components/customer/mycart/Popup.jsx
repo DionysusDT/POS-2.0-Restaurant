@@ -13,6 +13,12 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import "./Popup.scss"
 
 const SERVER = "http://localhost:4000/";
+function format(n, currency) {
+  if (n && currency)
+      return n.toFixed(0).replace(/./g, function (c, i, a) {
+          return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
+      }) + currency;
+}
 
 export default function Popup(props) {
   const [content, setContent] = useState(props.data);
@@ -83,15 +89,15 @@ export default function Popup(props) {
             />
             <TextField
               label="Giá"
-              defaultValue={product.price}
+              defaultValue={format(product.price , 'đ')}
               variant="outlined"
               margin="dense"
               InputProps={{ style: { fontSize: 14 } }}
               InputLabelProps={{ style: { fontSize: 14 } }}
             />
             <TextField
-              label="Yổng giá"
-              defaultValue={product.totalPrice}
+              label="Tổng giá"
+              defaultValue={format(product.totalPrice , 'đ')}
               variant="outlined"
               margin="dense"
               InputProps={{ style: { fontSize: 14 } }}

@@ -48,12 +48,25 @@ export default function Home() {
                                         Chef
                                     </Link>
                                 </li>
+                                <li>
+                                    <Link to="/Menu">
+                                        Thực đơn
+                                    </Link>
+                                </li>
                             </>}
-                        {permission === 'admin' && <li>
-                            <Link to="/admin">
-                                <p>Admin</p>
-                            </Link>
-                        </li>}
+                            {permission === 'admin' &&
+                            <>
+                                <li>
+                                    <Link to="/admin">
+                                        Admin
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/Menu">
+                                        Thực đơn
+                                    </Link>
+                                </li>
+                            </>}
                         {permission === 'shipper' && <li>
                             <Link to="/shipper">
                                 <p>Shipper</p>

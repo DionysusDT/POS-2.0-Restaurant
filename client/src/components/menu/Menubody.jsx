@@ -14,11 +14,17 @@ const classNames = require('classnames');
 
 export default function Menubody(props) {
     console.log(props.data)
+    // function format(n, currency) {
+    //     return currency + n.toFixed(0).replace(/./g, function (c, i, a) {
+    //         return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
+    //     });
+    // }
     function format(n, currency) {
-        return currency + n.toFixed(0).replace(/./g, function (c, i, a) {
-            return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
-        });
-    }
+      if (n && currency)
+          return n.toFixed(0).replace(/./g, function (c, i, a) {
+              return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
+          }) + currency;
+  }
     return (
       <div className={clsx(styles.mid)}>
         <div style={{ position: 'relative' }}>

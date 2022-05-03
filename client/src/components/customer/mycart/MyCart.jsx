@@ -108,7 +108,7 @@ const MyCart = () => {
                           <td>{val.status}</td>
                           <td>{val.process}</td>
                           <td>{val.payment}</td>
-                          <td>{val.total}</td>
+                          <td>{format(val.total, 'đ')}</td>
                           <td>{formatDate(val.createdAt)}</td>
                           <td>{formatDate(val.updatedAt)}</td>
                           <td>
