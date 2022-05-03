@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import styles from "./register.module.scss";
+import styles from "./Payment.module.scss";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import clsx from "clsx";
 import verifyToken from '../../midlewares/verifyToken';
+import { red } from '@mui/material/colors';
 
 
 export default function Paymentonline() {
@@ -101,13 +102,13 @@ export default function Paymentonline() {
                                 <>
                                     <li>
                                         <Link to="/chef">
-                                            Quản lí đơn hàng chef
+                                            Chef
                                         </Link>
                                     </li>
                                 </>}
                             {permission === 'admin' && <li>
                                 <Link to="/admin">
-                                    <p>Quản lý admin</p>
+                                    <p>Admin</p>
                                 </Link>
                             </li>}
                             {permission === 'shipper' && <li>
@@ -125,30 +126,33 @@ export default function Paymentonline() {
                                         </Link>
                                     </li>
                                     <li>
-                                        <div onClick={handleLogout}>
-                                            Đăng xuất
-                                        </div>
+                                        <a href="">Đăng xuất</a>
                                     </li>
                                 </>
                                 :
                                 <> 
                                     <li>
-                                        <Link to="/login">
-                                            <p>Đăng nhập</p>
+                                        <Link to="/register">
+                                            <p>Đăng ký</p>
                                         </Link>
                                     </li>
                                 </>
                             }
                         </ul>
                 </div>
-                <div>
-                <div>Đặt hàng thành công</div>
-                Vui lòng thanh toán bằng mã QR sau
-                <img src="https://images.viblo.asia/0998d669-0b87-405f-83ca-956971bf3476.png" alt="" />
-                <div>
-                  <a href="./customer">Đơn hàng của bạn</a>
+                <div className={clsx(styles.payment)}>
+                    <div className={clsx(styles.message)}>
+                        Đặt hàng thành công!!!
+                        <br />
+                        Vui lòng thanh toán bằng mã QR sau
+                    </div>   
+                    <div className={clsx(styles.qr)}> 
+                        <img src="https://images.viblo.asia/0998d669-0b87-405f-83ca-956971bf3476.png" alt="" />
+                    </div>      
+                    <div className={clsx(styles.order)}>
+                        <a href="./customer">Đơn hàng của bạn</a>
+                    </div>
                 </div>
-              </div>
             </div>
         </div>
     )

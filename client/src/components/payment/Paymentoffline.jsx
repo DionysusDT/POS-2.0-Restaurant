@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import styles from "./register.module.scss";
+import styles from "./Payment.module.scss";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import clsx from "clsx";
@@ -125,9 +125,7 @@ export default function Paymentoffline() {
                                         </Link>
                                     </li>
                                     <li>
-                                        <div onClick={handleLogout}>
-                                            Đăng xuất
-                                        </div>
+                                        <a href="">Đăng xuất</a>
                                     </li>
                                 </>
                                 :
@@ -141,14 +139,17 @@ export default function Paymentoffline() {
                             }
                         </ul>
                 </div>
-                <div>
-                    <div>Đặt hàng thành công</div>
-                Vui lòng thanh toán khi nhận hàng
-                <div>
-                  <a href="./customer">Đơn hàng của bạn</a>
+                <div className={clsx(styles.payment)}>
+                    <div className={clsx(styles.message1)}>
+                        Đặt hàng thành công!!!
+                        <br />
+                        Vui lòng thanh toán khi nhận hàng
+                    </div>         
+                    <div className={clsx(styles.order1)}>
+                        <a href="./customer">Đơn hàng của bạn</a>
+                    </div>
                 </div>
-              </div>
             </div>
-        </div>
+        </div>    
     )
 }

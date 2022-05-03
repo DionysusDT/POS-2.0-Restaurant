@@ -70,7 +70,7 @@ html {
 
 .takeCart {
     transition: 0.3s;
-    font-size: 30px;
+    font-size: 20px;
     color: white;
 }
 
@@ -128,7 +128,7 @@ html {
 
 .categories {
     display: flex;
-    padding-top: 6px;
+    padding-top: 10px;
     flex-wrap: wrap;
     align-items: center;
     height: 30vh;
@@ -139,7 +139,7 @@ html {
 } 
 
 .categories div{
-    margin: 13px;
+    margin: 10px 14px 10px 10px;
 }
 
 .listFood {
