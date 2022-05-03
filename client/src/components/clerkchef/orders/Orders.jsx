@@ -62,7 +62,6 @@ export default function Orders() {
         if (socket) {
             await socket.emit(`${status}`, orderID);
             getData(filter);
-            console.log(filter)
         }
     }
     return (

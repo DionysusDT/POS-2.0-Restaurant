@@ -22,7 +22,6 @@ const CustomerHome = () => {
         const getInfo = verifyToken();
         if (getInfo) {
             getInfo.then(res => {
-                console.log(res.data.permission)
                 if (res.data.permission !== 'customer') {
                     navigate('/login');
                 } 
@@ -34,7 +33,7 @@ const CustomerHome = () => {
     <div className="home">
       <div className="sidebar">
       <div className="top">
-        <Link to="/admin" style={{ textDecoration: "none" }}>
+        <Link to="/customer" style={{ textDecoration: "none" }}>
           <span className="logo">lamCustomer</span>
         </Link>
       </div>
@@ -45,7 +44,7 @@ const CustomerHome = () => {
           
             <li>
               <StoreIcon className="icon" />
-              <span className={`${Active ==="MyCart" && 'option--active'}`} onClick={()=>{SetActive("MyCart")}}>Chỉnh sửa thực đơn</span>
+              <span className={`${Active ==="MyCart" && 'option--active'}`} onClick={()=>{SetActive("MyCart")}}>Đơn hàng của tôi</span>
             </li>
          
           

@@ -7,5 +7,6 @@ const validateToken = require('../middlewares/validateToken');
 router.get('/order', validateToken, order.getOrder)
 router.get('/cook', validateToken, order.getCook)
 router.get('/shipper', validateToken, order.getOrderShipper)
+router.get('/orderbyemail', validateToken, order.getOrderbyemail)
 
 module.exports = router;
