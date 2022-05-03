@@ -15,6 +15,7 @@ import PreviewIcon from '@mui/icons-material/Preview';
 import clsx from "clsx";
 import socketClient from "socket.io-client";
 import Popup from "./Popup";
+import './MyCart.scss';
 const SERVER = "http://localhost:4000/";
 var socket = null;
 const formatDate = (dateString) => {
@@ -85,7 +86,7 @@ const MyCart = () => {
                 <div className='filter'>
                     <div className='header'>
                     </div>
-                    <div className="wrapper">
+                    <div className="wrapper1">
                         <span  onClick={() => getData(email)}>Đơn hàng của tôi</span>
                     </div>
                 </div>

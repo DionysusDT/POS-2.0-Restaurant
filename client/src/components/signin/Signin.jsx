@@ -123,7 +123,7 @@ function Signin({onShowLogin}){
                         </ul>
                 </div>
                 <div className= {clsx(styles.form)}>
-                    <h1 style= {{textAlign: 'center', marginBottom: 80}}>Login</h1>
+                    <h1 style= {{textAlign: 'center', marginBottom: 80}}>Đăng nhập</h1>
                         <div style={{width: '100%', position: 'relative'}}>
                             <input className= {clsx(styles.loginInput)}type="text" id='email' name='email' placeholder="" onChange={handleOnchangeEmail}/>
                             <label className={clsx(styles.formLabel)} for="email">Email</label>
@@ -133,7 +133,7 @@ function Signin({onShowLogin}){
                             <input className= {clsx(styles.loginInput)}type="password" id='password' name='password' onChange={handleOnchangePass}/>
                             <label className={clsx(styles.formLabel)} for="password">Password</label>
                         </div>
-                        <button  onClick={handleLogin} className={clsx(styles.submitForm)}>Login</button>
+                        <button  onClick={handleLogin} className={clsx(styles.submitForm)}>Đăng nhập</button>
                     {
                         error &&
                         <div className={clsx(styles.error)}>
