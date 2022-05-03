@@ -376,10 +376,10 @@ export default function Menu() {
    async function handlePayment() {
       try {
          if(payments == "online"){
-            setMessage('Vui lòng thanh toán bằng QR code bên dưới và đợi đầu bếp xác nhận đơn hàng, không chuyển trang hoặc f5')
+            navigate('/paymentonline')
          }
          if(payments == "offline"){
-            setMessage('Vui lòng đợi đầu bếp xác nhận đơn hàng của bạn, không chuyển trang hoặc f5')
+            navigate('/paymentoffline')
          }
          const info = verifyToken();
          var email = '';
@@ -417,8 +417,8 @@ export default function Menu() {
                socket.on(`${res.orderId}`, (status) => {
                   localStorage.setItem('ORDER', null);
                   socket.disconnect();
-                  if (status === 'confirmed') navigate('/profile');
-                  else if (status === 'cancel') setMessage('Đơn hàng của bạn đã bị hủy bởi đầu bếp');
+                  // if (status === 'confirmed') navigate('/profile');
+                  // else if (status === 'cancel') setMessage('Đơn hàng của bạn đã bị hủy bởi đầu bếp');
                })
             }
             else {

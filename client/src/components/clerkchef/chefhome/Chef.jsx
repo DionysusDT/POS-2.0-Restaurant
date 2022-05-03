@@ -33,7 +33,7 @@ const AdminHome = () => {
     <div className="home">
       <div className="sidebar">
       <div className="top">
-        <Link to="/admin" style={{ textDecoration: "none" }}>
+        <Link to="/chef" style={{ textDecoration: "none" }}>
           <span className="logo">lamChef</span>
         </Link>
       </div>

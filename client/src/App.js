@@ -1,4 +1,5 @@
-import Payment from './components/payment/Payment'
+import Paymentonline from './components/payment/Paymentonline'
+import Paymentoffline from './components/payment/Paymentoffline'
 import Menu from'./components/menu/Menu'
 // import Menubody from'./components/menu/Menubody'
 import Home from'./components/home/Home'
@@ -45,7 +46,10 @@ function App() {
               <Route index element={<Userprofile />} />
             </Route>
           </Route>
+          <Route path="/paymentonline" element={<Paymentonline/>} />
+          <Route path="/paymentoffline" element={<Paymentoffline/>} />
         </Routes>
+       
     </>
   )
 }
