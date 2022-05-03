@@ -30,8 +30,8 @@ const AdminHome = () => {
       
       <div className="sidebar">
       <div className="top">
-        <Link to="/admin" style={{ textDecoration: "none" }}>
-          <span className="logo">lamShipper</span>
+        <Link to="/shipper" style={{ textDecoration: "none" }}>
+          <span className="logo">SHIPPER</span>
         </Link>
       </div>
       <hr />

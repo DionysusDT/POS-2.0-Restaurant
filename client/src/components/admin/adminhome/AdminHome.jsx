@@ -35,7 +35,7 @@ const AdminHome = () => {
       <div className="sidebar">
       <div className="top">
         <Link to="/admin" style={{ textDecoration: "none" }}>
-          <span className="logo">lamadmin</span>
+          <span className="logo">ADMIN</span>
         </Link>
       </div>
       <hr />
@@ -52,7 +52,7 @@ const AdminHome = () => {
           {/* <Link to="/admin/products" style={{ textDecoration: "none" }}> */}
             <li>
               <StoreIcon className="icon" />
-              <span className={`${Active ==="MenuEdit" && 'option--active'}`} onClick={()=>{SetActive("MenuEdit")}}>Chỉnh sửa thực đơn</span>
+              <span className={`${Active ==="MenuEdit" && 'option--active'}`} onClick={()=>{SetActive("MenuEdit")}}>Thực đơn</span>
             </li>
           {/* </Link> */}
           {/* <Link to="/admin/statistics" style={{ textDecoration: "none" }}> */}

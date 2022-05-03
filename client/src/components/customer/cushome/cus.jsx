@@ -34,8 +34,8 @@ const CustomerHome = () => {
     <div className="home">
       <div className="sidebar">
       <div className="top">
-        <Link to="/admin" style={{ textDecoration: "none" }}>
-          <span className="logo">lamCustomer</span>
+        <Link to="/customer" style={{ textDecoration: "none" }}>
+          <span className="logo">Customer</span>
         </Link>
       </div>
       <hr />
@@ -45,7 +45,7 @@ const CustomerHome = () => {
           
             <li>
               <StoreIcon className="icon" />
-              <span className={`${Active ==="MyCart" && 'option--active'}`} onClick={()=>{SetActive("MyCart")}}>Chỉnh sửa thực đơn</span>
+              <span className={`${Active ==="MyCart" && 'option--active'}`} onClick={()=>{SetActive("MyCart")}}>Đơn hàng</span>
             </li>
          
           

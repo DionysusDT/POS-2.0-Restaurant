@@ -1,7 +1,7 @@
 @import "variable";
 .clerk,
 .kitchen {
-    font-size: 1.6rem;
+    font-size: 1rem;
     .body {
         min-width: 900px;
         .filter {
@@ -10,7 +10,8 @@
             flex-wrap: wrap;
             .wrapper {
                 line-height: 70px;
-                min-width: 350px;
+                width: 700px;
+                margin-right: 165px;
             }
             p {
                 font-size: 1.75rem;
