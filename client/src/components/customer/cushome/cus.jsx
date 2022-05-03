@@ -44,11 +44,7 @@ const CustomerHome = () => {
           
             <li>
               <StoreIcon className="icon" />
-<<<<<<< HEAD
               <span className={`${Active ==="MyCart" && 'option--active'}`} onClick={()=>{SetActive("MyCart")}}>Đơn hàng</span>
-=======
-              <span className={`${Active ==="MyCart" && 'option--active'}`} onClick={()=>{SetActive("MyCart")}}>Đơn hàng của tôi</span>
->>>>>>> 211edc51e6425e8a8b365f43a87f466d08f219ac
             </li>
          
           
