@@ -34,7 +34,7 @@ const CustomerHome = () => {
       <div className="sidebar">
       <div className="top">
         <Link to="/customer" style={{ textDecoration: "none" }}>
-          <span className="logo">lamCustomer</span>
+          <span className="logo">CUSTOMER</span>
         </Link>
       </div>
       <hr />
@@ -44,7 +44,7 @@ const CustomerHome = () => {
           
             <li>
               <StoreIcon className="icon" />
-              <span className={`${Active ==="MyCart" && 'option--active'}`} onClick={()=>{SetActive("MyCart")}}>Đơn hàng của tôi</span>
+              <span className={`${Active ==="MyCart" && 'option--active'}`} onClick={()=>{SetActive("MyCart")}}>Đơn hàng</span>
             </li>
          
           

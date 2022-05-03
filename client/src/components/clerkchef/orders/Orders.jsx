@@ -76,7 +76,6 @@ export default function Orders() {
                             <span className={classNames({ active: filter === 'confirmed' })} onClick={() => getData('confirmed')}>Đã xác nhận</span>
                             <span className={classNames({ active: filter === 'cancel' })} onClick={() => getData('cancel')}>Đã bị hủy</span>
                         </div>
-                        <p>Danh sách đơn hàng</p>
                     </div>
                     <table>
                         <tr>

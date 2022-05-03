@@ -82,13 +82,13 @@ function Signin({onShowLogin}){
                                 <>
                                     <li>
                                         <Link to="/chef">
-                                            Quản lí đơn hàng chef
+                                            Chef
                                         </Link>
                                     </li>
                                 </>}
                             {permission === 'admin' && <li>
                                 <Link to="/admin">
-                                    <p>Quản lý admin</p>
+                                    <p>Admin</p>
                                 </Link>
                             </li>}
                             {permission === 'shipper' && <li>

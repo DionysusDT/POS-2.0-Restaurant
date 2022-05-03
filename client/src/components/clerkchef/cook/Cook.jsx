@@ -72,11 +72,10 @@ export default function Cook() {
                     <div className='filter'>
                         <div className='header'>
                         </div>
-                        <div className="wrapper">
+                        <div className="wrapper1">
                             <span className={classNames({ active: filter === 'cooking' })} onClick={() => getData('cooking')}>Đang nấu</span>
                             <span className={classNames({ active: filter === 'cooked' })} onClick={() => getData('cooked')}>Đã nấu xong</span>
                         </div>
-                        <p>Danh sách đơn hàng</p>
                     </div>
                     <table>
                         <tr>

@@ -8,11 +8,10 @@
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
-            .wrapper1 {
+            .wrapper {
                 line-height: 70px;
-                min-width: 350px;
-                margin-left: auto;
-                margin-right: auto;
+                width: 700px;
+                margin-right: 165px;
             }
             p {
                 font-size: 1.75rem;

@@ -72,12 +72,11 @@ export default function OrdersShipper() {
                     <div className='filter'>
                         <div className='header'>
                         </div>
-                        <div className="wrapper">
-                            <span className={classNames({ active: filter === 'cooked' })} onClick={() => getData('cooked')}>Chưa nhận hàng</span>
+                        <div className="wrapper1">
+                            <span className={classNames({ active: filter === 'cooked' })} onClick={() => getData('cooked')}>Đang chờ</span>
                             <span className={classNames({ active: filter === 'shipping' })} onClick={() => getData('shipping')}>Đang giao</span>
                             <span className={classNames({ active: filter === 'delivered' })} onClick={() => getData('delivered')}>Đã giao</span>
                         </div>
-                        <p>Danh sách đơn hàng</p>
                     </div>
                     <table>
                         <tr>
