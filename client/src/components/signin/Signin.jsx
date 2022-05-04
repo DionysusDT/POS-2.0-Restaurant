@@ -131,7 +131,7 @@ function Signin({onShowLogin}){
                         </div>
                         <div style={{width: '100%', position: 'relative', marginTop: 50}}>
                             <input className= {clsx(styles.loginInput)}type="password" id='password' name='password' onChange={handleOnchangePass}/>
-                            <label className={clsx(styles.formLabel)} for="password">Password</label>
+                            <label className={clsx(styles.formLabel)} for="password">Mật khẩu</label>
                         </div>
                         <button  onClick={handleLogin} className={clsx(styles.submitForm)}>Đăng nhập</button>
                     {
