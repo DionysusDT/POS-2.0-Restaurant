@@ -199,7 +199,7 @@ export default function Menu() {
                ...dataTag,
                start: 0,
                currentIdx: 1,
-               end: 2,
+               end: 1,
                responsive: 477
             })
       }
